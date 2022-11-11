@@ -33,6 +33,7 @@ class Server{
 
       this.app.use(express.static('public'));
       this.app.use(express.static('views'));
+      
     }
 
 
@@ -43,7 +44,7 @@ class Server{
     }
     routes(){
         this.app.use(this.usuariosPath,require('../routes/user'));
-        this.app.use
+        
 
     }
 }
