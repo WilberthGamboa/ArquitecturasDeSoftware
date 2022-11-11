@@ -8,6 +8,7 @@ class Server{
         this.app = express();
         this.port=3000;
         this.usuariosPath = '/api/usuarios';
+    
         this.conectarDB();
         this.middlewares();
         this.routes();
@@ -25,12 +26,13 @@ class Server{
 
     middlewares(){
         //CORS
-       this.app.use(cors());
+     //  this.app.use(cors());
        //lectura y parseo
 
       // this.app.use(express.json());
 
-       // this.app.use(express.static('public'));
+      this.app.use(express.static('public'));
+      this.app.use(express.static('views'));
     }
 
 
@@ -40,7 +42,8 @@ class Server{
         });
     }
     routes(){
-        this.app.use(this.usuariosPath,require('../routes/user'))
+        this.app.use(this.usuariosPath,require('../routes/user'));
+        this.app.use
 
     }
 }
