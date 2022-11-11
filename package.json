@@ -4,7 +4,9 @@
   "description": "Crud express",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:css" : "postcss public/styles/tailwind.css -o public/styles/styles.css --watch",
+    "corre":"tailwindcss -i ./public/styles/tailwind.css -o ./public/styles/styles.css --watch"
   },
   "repository": {
     "type": "git",
@@ -17,7 +19,16 @@
   },
   "homepage": "https://github.com/WilberthGamboa/Arquitecturas-De-Software-Proyecto#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.18.2",
-    "mysql2": "^2.3.3"
+    "express-validator": "^6.14.2",
+    "mysql2": "^2.3.3",
+    "postcss": "^8.4.19",
+    "sequelize": "^6.25.5"
+  },
+  "devDependencies": {
+    "autoprefixer": "^9.8.8",
+    "postcss-cli": "^10.0.0",
+    "tailwindcss": "^3.2.3"
   }
 }
