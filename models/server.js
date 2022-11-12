@@ -29,7 +29,7 @@ class Server{
      //  this.app.use(cors());
        //lectura y parseo
 
-      // this.app.use(express.json());
+       this.app.use(express.json());
 
       this.app.use(express.static('public'));
       this.app.use(express.static('views'));
