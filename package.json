@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:css" : "postcss public/styles/tailwind.css -o public/styles/styles.css --watch",
-    "corre":"tailwindcss -i ./public/styles/tailwind.css -o ./public/styles/styles.css --watch"
+    "build:css": "postcss public/styles/tailwind.css -o public/styles/styles.css --watch",
+    "corre": "tailwindcss -i ./public/styles/tailwind.css -o ./public/styles/styles.css --watch"
   },
   "repository": {
     "type": "git",
@@ -22,6 +22,7 @@
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "express-validator": "^6.14.2",
+    "install": "^0.13.0",
     "mysql2": "^2.3.3",
     "postcss": "^8.4.19",
     "sequelize": "^6.25.5"
