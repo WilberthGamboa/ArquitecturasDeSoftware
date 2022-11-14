@@ -1,4 +1,4 @@
-const { response } = require("express");
+
 
 document.addEventListener('DOMContentLoaded', function () {
 
@@ -34,10 +34,6 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-const response = (response) => {
-    
-    
-}
 
 
 
