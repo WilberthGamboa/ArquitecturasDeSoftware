@@ -17,10 +17,11 @@ res.then(json =>{
 
             const aux2 =Object.values(aux);
             aux2.pop()
+            aux2.pop()
             
             aux2.forEach(element => {
                 const td = document.createElement("td") 
-                td.classList="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static";
+                td.classList="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static";
                 td.textContent=element;
                 console.log(aux2);
                 tr.appendChild(td);
