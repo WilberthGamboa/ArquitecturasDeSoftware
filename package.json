@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:css": "postcss public/styles/tailwind.css -o public/styles/styles.css --watch",
-    "corre": "tailwindcss -i ./public/styles/tailwind.css -o ./public/styles/styles.css --watch"
+    "corre": "npx tailwindcss -i ./public/styles/tailwind.css -o ./public/styles/styles.css --watch"
   },
   "repository": {
     "type": "git",

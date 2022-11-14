@@ -17,9 +17,9 @@ const usersPost = async (req,res) =>{
         return res.status(400).json(errors);
     }
     */
-   console.log(req);
+   
     const {body} = req;
-    console.log(body);
+    
 
     try {
         const user = new User(body);
@@ -35,7 +35,7 @@ const usersPost = async (req,res) =>{
 }
 
 
-
+    
 module.exports ={
     usersGet,
     usersPost

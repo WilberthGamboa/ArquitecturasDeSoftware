@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
             "nombre": btnsInputNombre.value,
             "numero":btnsInputNumero.value
         }
+
         const api = new Api();
         api.postApi(req);
         
