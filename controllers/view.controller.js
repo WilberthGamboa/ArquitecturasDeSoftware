@@ -1,8 +1,17 @@
 
 const index = (req, res) =>{
-    res.render('../views/index.html');
+    console.log(__dirname)
+    res.sendFile(__dirname+'/../views/index.html');
+}
+
+const agregar = (req, res) =>{
+    res.sendFile(__dirname+'/../views/agregar.html');
 }
 
 
 
-module.exports = index;
+
+module.exports = {
+    index,
+    agregar
+};

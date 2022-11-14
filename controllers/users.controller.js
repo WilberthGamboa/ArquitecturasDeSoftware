@@ -11,16 +11,19 @@ const usersGet = async (req,res) =>{
 
 const usersPost = async (req,res) =>{
     
+    /*
     const errors = validationResult(req);
     if(!errors.isEmpty()){
         return res.status(400).json(errors);
     }
-    
+    */
+   console.log(req);
     const {body} = req;
+    console.log(body);
 
     try {
         const user = new User(body);
-        await user.save();
+      await user.save();
         res.json(user);
     } catch (error) {
         console.log(error);
