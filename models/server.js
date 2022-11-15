@@ -1,12 +1,13 @@
 const express = require('express');
 const cors = require('cors');
 const db = require('../database/config');
+const { PORT } = require('../config');
 
 
 class Server{
     constructor(){
         this.app = express();
-        this.port=3000;
+        this.port=PORT;
         this.usuariosPath = '/api/usuarios';
     
         this.conectarDB();

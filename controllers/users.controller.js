@@ -18,10 +18,26 @@ const usersPost = async (req,res) =>{
     }
     */
    
-    const {body} = req;
-    
+   
 
     try {
+        const {body} = req;
+
+        const existeUsuario = await User.findOne({
+            where:{
+                nombre: body.nombre
+            }
+        });
+
+        if (existeUsuario) {
+            res.status(400).json({
+                msg:'Ya existe un usuario con el nombre' + body.nombre
+            })
+            return;
+        }
+       
+
+
         const user = new User(body);
       await user.save();
         res.json(user);
