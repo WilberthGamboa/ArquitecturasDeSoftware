@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
     
     btnSubmit.addEventListener('click', function(e)  {
         e.preventDefault();
+        
         const btnsInputNombre= document.querySelector('#nombre');
         const btnsInputNumero= document.querySelector('#numero');
         console.log(Number(btnsInputNumero.value));
@@ -18,8 +19,8 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         const api = new Api();
-        api.postApi(req);
-        
+        const res = api.postApi(req);
+        manejadorSolicitudes(res);
         
 
     })
