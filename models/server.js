@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const db = require('../database/config');
+//const { PORT } = require('../config');
 
 
 class Server{
@@ -29,7 +30,7 @@ class Server{
      //  this.app.use(cors());
        //lectura y parseo
 
-      // this.app.use(express.json());
+       this.app.use(express.json());
 
       this.app.use(express.static('public'));
       this.app.use(express.static('views'));
@@ -44,7 +45,7 @@ class Server{
     }
     routes(){
         this.app.use(this.usuariosPath,require('../routes/user'));
-        
+        this.app.use('/',require('../routes/view.route'));
 
     }
 }
