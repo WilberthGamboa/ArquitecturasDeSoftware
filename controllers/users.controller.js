@@ -9,7 +9,7 @@ const usersGet = async (req,res) =>{
 
 }
 
-const usersPost = async (req,res) =>{
+const userPost = async (req,res) =>{
     
     /*
     const errors = validationResult(req);
@@ -50,9 +50,27 @@ const usersPost = async (req,res) =>{
 
 }
 
+const userDelete = async (req,res) =>{
+    const {id} = req.params;
+    const user = await User.findByPk(id);
+    if (!user) {
+        return res.status(404).json({
+            msg: 'No existe usuario con el id' + id
+        })
+        
+    }
+
+    await user.destroy();
+
+
+
+}
+
 
     
 module.exports ={
     usersGet,
-    usersPost
+    userPost,
+    userDelete
+    
 }

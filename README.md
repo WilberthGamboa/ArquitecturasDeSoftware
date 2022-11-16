@@ -1,6 +1,6 @@
 # Arquitecturas-De-Software-Proyecto
 
-##Integrantes:
+## Integrantes:
 
 1. Aké Gamboa Alejandro.
 2. Fernandez Mena Ariel JeSús 
