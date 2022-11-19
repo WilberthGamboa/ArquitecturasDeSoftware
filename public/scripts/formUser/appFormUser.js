@@ -1,15 +1,19 @@
 document.addEventListener('DOMContentLoaded', function () {
     
-    main();
+     desactivarEventoSubmit();
 
 });
 
-
-const main = () => {
+const desactivarEventoSubmit = () =>{
     const btnSubmit = document.querySelector('#btnSubmit');
     btnSubmit.addEventListener('click', function(e)  {
         e.preventDefault();
-        const btnsInputNombre= document.querySelector('#nombre');
+        obtenerValoresForm();
+    });
+}
+
+const obtenerValoresForm = () =>{
+    const btnsInputNombre= document.querySelector('#nombre');
         const btnsInputNumero= document.querySelector('#numero');
         const req = {
             "nombre": btnsInputNombre.value,
@@ -18,9 +22,9 @@ const main = () => {
         const api = new Api();
         const res = api.postApi(req);
         manejadorSolicitudes(res);
-    
-    });
+
 }
+
 
 
 
