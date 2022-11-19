@@ -1,14 +1,13 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const api = new Api();
+   
     const res = api.consultarApi();
     const table = document.querySelector("#tbody");
     table.addEventListener('click',(e)=>{
         
-        console.log(e.target.parentNode)
+     
         if (e.target.id=="eliminar") {
             const trActual = e.target.parentNode.parentNode;
-        console.log(trActual);
-        console.log(trActual.firstChild.textContent);
+     
         Swal.fire({
             title: '¿Está seguro de eliminar este registro?',
             text: "Una vez eliminado, esta acción no se podrá deshacer",
@@ -19,8 +18,9 @@ document.addEventListener('DOMContentLoaded', function () {
             confirmButtonText: 'Eliminar'
           }).then((result) => {
             if (result.isConfirmed) {
-                trActual.remove();
+                const api = new Api();
                 api.deleteApi(trActual.firstChild.textContent);
+                trActual.remove();
               Swal.fire(
                 'Borrado',
                 'Registro eliminado',
@@ -34,8 +34,8 @@ document.addEventListener('DOMContentLoaded', function () {
       
         
        
-       console.log( e.target.dataset)
-    })
+       
+    });
 
     res.then(json => {
 
