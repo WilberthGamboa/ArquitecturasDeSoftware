@@ -1,7 +1,15 @@
+/**
+ * Clase encargada de generar alertas y manipular el dom en la vista Agregar
+ */
+
 class domFormUser {
   constructor() {
 
   }
+
+  /**
+   * Muestra la alerta cuando se agrega un usuario
+   */
   agregarUsuario = () => {
 
     Swal.fire({
@@ -13,7 +21,10 @@ class domFormUser {
 
   }
 
-
+  /**
+   * Se utiliza cuando la respuesta del json es 400, dibujando en el dom los errores
+   * @param {*} resJson 
+   */
   alertarErrores = (resJson) => {
     resJson.then(json => {
       const arrayErrors = json['errors'];
