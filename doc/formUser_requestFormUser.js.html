@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>Home - Documentation</title>
+    <title>formUser/requestFormUser.js - Documentation</title>
     
     
     <script src="scripts/prettify/prettify.js"></script>
@@ -35,31 +35,51 @@
 
 <div id="main">
     
+    <h1 class="page-title">formUser/requestFormUser.js</h1>
+    
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Clase encargada de manejar los status.
+ * 
+ */
 
+class RequestFormUser {
 
-    <section class="package">
-        <h3> </h3>		
+    /**
+     * Constructor de la clase
+     * @constructor
+     */
+    constructor() {
+
+    }
+    /**
+     * Método encargado de dependiendo del status del servidor llamar a una acción distinta del DOM.
+     * 
+     * @param {Promise} promise promesa con el status de la respuesta dada por el servidor. 
+     * @return {void}
+     */
+    async manejadorSolicitudes(promise) {
+        promise.then(res => {
+            const domformUser = new DomFormUser();
+            if (res.ok) {
+                domformUser.alertAgregarUsuario();
+            } else if (res.status == 400) {
+                domformUser.alertarErrores(res.json());
+            }
+
+        });
+
+    }
+}</code></pre>
+        </article>
     </section>
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
 
 
 

@@ -1,16 +1,22 @@
 /**
- * Clase encargada de generar alertas y manipular el dom en la vista Agregar
+ * Clase encargada de generar alertas y manipular el dom en la vista Agregar.
  */
 
-class domFormUser {
+class DomFormUser {
+
+  /**
+   * Constructor de la clase
+   * @constructor
+   */
   constructor() {
 
   }
 
   /**
-   * Muestra la alerta cuando se agrega un usuario
+   * Muestra una alerta cuando se agrega un usuario.
+   * @returns {void} 
    */
-  agregarUsuario = () => {
+  alertAgregarUsuario() {
 
     Swal.fire({
       icon: 'success',
@@ -22,10 +28,11 @@ class domFormUser {
   }
 
   /**
-   * Se utiliza cuando la respuesta del json es 400, dibujando en el dom los errores
-   * @param {*} resJson 
+   * Se utiliza cuando la respuesta del json es 400, dibujando en el dom los errores.
+   * @param {Promise} resJson Promesa con los errores almacenados en un Json.
+   * @returns {void}
    */
-  alertarErrores = (resJson) => {
+  alertarErrores(resJson) {
     resJson.then(json => {
       const arrayErrors = json['errors'];
 
@@ -68,7 +75,43 @@ class domFormUser {
     })
 
   }
+
+  /**
+ * Método que obtiene los valores del formulario
+ * @returns {Object} retorna el objeto para realizar una solicitud
+ */
+  obtenerValoresForm() {
+    const btnsInputNombre = document.querySelector('#nombre');
+    const btnsInputNumero = document.querySelector('#numero');
+    /**
+     * Objeto request
+     * @type{{nombre:string,numero:string}}
+     * 
+     */
+    const req = {
+      nombre: btnsInputNombre.value,
+      numero: btnsInputNumero.value
+    }
+    return req;
+  }
+
+  /**
+   * Realiza el llamado a la Api así como al manejadorSolicitudes()
+   * @param {Object} req Solicitud a enviar
+   * @returns {void}
+   */
+
+  async agregarUsuario  (req)  {
+    const api = new Api();
+    const requestFormUser = new RequestFormUser();
+    const res = api.postApi(req);
+    requestFormUser.manejadorSolicitudes(res);
+  
+  }
+
 }
+
+
 
 
 

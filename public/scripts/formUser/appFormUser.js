@@ -1,55 +1,30 @@
 
 
-document.addEventListener('DOMContentLoaded', function () {
-    
-     main();
+appFormUser();
 
-});
+
 
 /**
  * Función principal del formUser
- *
+ * @returns {void}
  * 
  */
-const main = () =>{
-    const btnSubmit = document.querySelector('#btnSubmit');
-    btnSubmit.addEventListener('click', function(e)  {
-        e.preventDefault();
-       const req= obtenerValoresForm();
-       agregarUsuario(req);
+const appFormUser = () => {
+    document.addEventListener('DOMContentLoaded', function () {
+        const btnSubmit = document.querySelector('#btnSubmit');
+        btnSubmit.addEventListener('click', function (e) {
+            e.preventDefault();
+            const domFormUser = new DomFormUser();
+            const req = domFormUser.obtenerValoresForm();
+            domFormUser.agregarUsuario(req);
+        });
     });
-}
 
-/**
- * 
- * @returns {Object} retorna el objeto para realizar una solicitud
- */
-const obtenerValoresForm = () =>{
-    const btnsInputNombre= document.querySelector('#nombre');
-        const btnsInputNumero= document.querySelector('#numero');
-        /**
-         * Objeto request
-         * @type{{nombre:string,numero:string}}
-         * 
-         */
-        const req = {
-            nombre: btnsInputNombre.value,
-            numero:btnsInputNumero.value
-        }
-        return req;
 }
 
 
-/**
- * Envia el usuario a la api
- * @param {Object} req Solicitud a enviar
- */
 
-const agregarUsuario = (req) =>{
-    const api = new Api();
-    const res = api.postApi(req);
-    manejadorSolicitudes(res);
-}
+
 
 
 

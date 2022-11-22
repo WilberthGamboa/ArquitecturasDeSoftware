@@ -1,9 +1,21 @@
-
+/**
+ * Clase encargada de llamar a la ApiRest 
+ * 
+ */
 class Api {
+/** Almacena la dirección de la api dentro del constructor
+ * @constructor
+ */
   constructor() {
     this.url = "http://localhost:3000/api/usuarios";
   }
-  consultarApi = async () => {
+  /**
+   * Realiza una petición get para obtener los usuarios
+   * 
+   * @returns {Promise} Promesa con los usuarios de la base de datos
+   * 
+   */
+  async consultarApi  ()  {
     
     try {
       const respuesta = await fetch(`${this.url}`);
@@ -15,8 +27,12 @@ class Api {
 
     }
   }
-
-  postApi = async (req) => {
+/**
+ * Realiza una petición post para almacenar los usuarios.
+ * @param {Object} req Datos a enviar a la base de datos para su registro.
+ * @returns {Promise} Devuelve una promesa con mensajes dependiendo si la tarea se logró con éxito o no.
+ */
+ async postApi (req)  {
     try {
       const config = {
         method: 'POST',
@@ -33,8 +49,12 @@ class Api {
       //
     }
   }
-
-  deleteApi = async (req) => {
+/**
+ * Realiza una petición post
+ * @param {String} req id del elemento a eliminar en la base de datos
+ * @returns {Promise} Respuesta del servidor con la lista de usuarios
+ */
+ async deleteApi () {
 
     try {
       const config = {

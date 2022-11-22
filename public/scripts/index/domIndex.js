@@ -1,8 +1,21 @@
-class OpcionesIndex {
+/**
+ * Clase encargada de manejar el dom de la vista index
+ */
+class DomIndex {
+
+    /**
+     * Constructor de la clase
+     * @constructor
+     * 
+     */
     constructor() {
     }
 
-    eliminarUsuarioDom = () => {
+    /**
+     * Método encargado de eliminar el usuario de la tabla principal la vista index
+     * @returns {void}
+     */
+    eliminarUsuarioDom () {
         const tablebody = document.querySelector("#tbody");
         tablebody.addEventListener('click', (e) => {
             if (e.target.id == "eliminar") {
@@ -32,7 +45,12 @@ class OpcionesIndex {
         });
 
     }
-    listarUsuariosDom = () => {
+
+    /**
+     * Método encargado de agregar los a la tabla del dom 
+     * @returns {void}
+     */
+    listarUsuariosDom () {
         const api = new Api();
         const res = api.consultarApi();
         res.then(json => {
