@@ -2,7 +2,7 @@
 module.exports = {
   content: ["./src/**/*.{html,js}",
   "./views/*.html",
-  "./scripts/agregar/*.js",
+  "./public/scripts/formUser/*.js",
   "./public/scripts/agregar/*.js",
   "./public/scripts/index/*.js",
   

@@ -18,6 +18,7 @@ class Api {
   async consultarApi  (busqueda="",desde="")  {
     
     try {
+      console.log(`${this.url}`+busqueda+desde);
       const respuesta = await fetch(`${this.url}`+busqueda+desde);
       if (respuesta.status == 200) {
         const json = await respuesta.json();

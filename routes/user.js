@@ -10,7 +10,7 @@ router.post('/',[
 
     check('nombre','El nombre es obligatorio').not().isEmpty(),
     check('numero','El número es obligatorio').not().isEmpty(),
-    check('numero',"El dato ingresado no es un número celuar").optional({checkFalsy: true}).isMobilePhone('any',true),
+    check('numero',"El dato ingresado no es un número celular").optional({checkFalsy: true}).isMobilePhone('any',true),
     validarCampos
 
 ]

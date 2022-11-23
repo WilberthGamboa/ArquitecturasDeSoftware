@@ -30,7 +30,6 @@ const userPost = async (req,res) =>{
     }
     */
    
-   
 
     try {
         const {body} = req;
