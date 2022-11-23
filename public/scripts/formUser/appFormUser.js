@@ -1,9 +1,4 @@
 
-
-appFormUser();
-
-
-
 /**
  * Función principal del formUser
  * @returns {void}
@@ -21,7 +16,7 @@ const appFormUser = () => {
     });
 
 }
-
+appFormUser();
 
 
 

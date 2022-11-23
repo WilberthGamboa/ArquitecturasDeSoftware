@@ -1,5 +1,5 @@
 
-appIndex();
+
 /**
  * Inicia los scripts correspondientes a la vista index
  * @returns {void}
@@ -13,4 +13,4 @@ const appIndex = () =>{
   
 }
 
-
+appIndex();
