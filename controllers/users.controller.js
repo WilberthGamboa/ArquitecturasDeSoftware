@@ -3,13 +3,13 @@ const { Op } = require("sequelize");
 const User = require('../models/user.model')
 
 const usersGet = async (req,res) =>{
-    const limite = 10;
+    const limite = 5;
     const { desde = 0,busqueda=""}= req.query;
     const usuarios = await User.findAll({
-        offset:desde , limit: limite,
+        offset:Number(5*desde) , limit: limite,
         where:{
             nombre: {
-                [Op.like]: `%${busqueda}%`
+                [Op.like]: `%${String(busqueda)}%`
               }
         }
     });

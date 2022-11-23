@@ -50,12 +50,20 @@ class DomIndex {
      * Método encargado de agregar los a la tabla del dom 
      * @returns {void}
      */
-    listarUsuariosDom () {
+    listarUsuariosDom (busqueda=" ",desde="") {
         const api = new Api();
-        const res = api.consultarApi();
+        const res = api.consultarApi(busqueda,desde);
+        const tbody = document.querySelector("#tbody");
+            if (tbody.hasChildNodes) {
+             
+                while (tbody.hasChildNodes()) {
+                   
+                    tbody.removeChild(tbody.firstChild);
+                }
+        
+              }
         res.then(json => {
-            const tbody = document.querySelector("#tbody");
-
+                console.log(json);
             for (let index = 0; index < json.usuarios.length; index++) {
                 const tr = document.createElement("tr")
                 tr.classList = "bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0";

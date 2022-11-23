@@ -16,7 +16,7 @@ class RequestFormUser {
      * Método encargado de dependiendo del status del servidor llamar a una acción distinta del DOM.
      * 
      * @param {Promise} promise promesa con el status de la respuesta dada por el servidor. 
-     * @return {void}
+     * @return {void}   
      */
     async manejadorSolicitudes(promise) {
         promise.then(res => {

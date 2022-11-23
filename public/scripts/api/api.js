@@ -15,10 +15,10 @@ class Api {
    * @returns {Promise} Promesa con los usuarios de la base de datos
    * 
    */
-  async consultarApi  ()  {
+  async consultarApi  (busqueda="",desde="")  {
     
     try {
-      const respuesta = await fetch(`${this.url}`);
+      const respuesta = await fetch(`${this.url}`+busqueda+desde);
       if (respuesta.status == 200) {
         const json = await respuesta.json();
         return json;
