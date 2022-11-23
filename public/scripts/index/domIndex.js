@@ -9,13 +9,15 @@ class DomIndex {
      * 
      */
     constructor() {
+        this.pagina = 0;
+        this.paginaActual = document.querySelector('#paginaActual');
     }
 
     /**
      * Método encargado de eliminar el usuario de la tabla principal la vista index
      * @returns {void}
      */
-    eliminarUsuarioDom () {
+    eliminarUsuarioDom() {
         const tablebody = document.querySelector("#tbody");
         tablebody.addEventListener('click', (e) => {
             if (e.target.id == "eliminar") {
@@ -48,29 +50,29 @@ class DomIndex {
 
     /**
      * Método encargado de agregar los a la tabla del dom 
+     * 
      * @returns {void}
      */
-    listarUsuariosDom (busqueda=" ",desde="") {
-        const api = new Api();
-        const res = api.consultarApi(busqueda,desde);
+    listarUsuariosDom(res) {
+
         const tbody = document.querySelector("#tbody");
-            if (tbody.hasChildNodes) {
-             
-                while (tbody.hasChildNodes()) {
-                   
-                    tbody.removeChild(tbody.firstChild);
-                }
-        
-              }
+        if (tbody.hasChildNodes) {
+
+            while (tbody.hasChildNodes()) {
+
+                tbody.removeChild(tbody.firstChild);
+            }
+
+        }
         res.then(json => {
-                console.log(json);
+            console.log(json);
             for (let index = 0; index < json.usuarios.length; index++) {
                 const tr = document.createElement("tr")
                 tr.classList = "bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0";
-            
+
                 const usuarios = json.usuarios[index];
                 const usuariosArray = Object.values(usuarios);
-                
+
                 usuariosArray.pop()
                 usuariosArray.pop()
                 usuariosArray.forEach(element => {
@@ -98,6 +100,51 @@ class DomIndex {
             }
 
         });
+
+    }
+
+    eventoBtnSiguiente() {
+        const btnSiguiente = document.querySelector('#btnSiguiente');
+        btnSiguiente.addEventListener('click', (e) => {
+            const api = new Api();
+            this.pagina = this.pagina + 1;
+            this.paginaActual.innerHTML = this.pagina + 1;
+            const res = api.consultarApi('/?busqueda=' + textoBuscar.value + "&&desde=" + this.pagina);
+            this.listarUsuariosDom(res);
+
+        })
+
+    }
+
+    eventoBtnAnterior() {
+        const btnAnterior = document.querySelector('#btnAnterior');
+        btnAnterior.addEventListener('click', (e) => {
+            if (this.pagina > 0) {
+                const api = new Api();
+                this.pagina = this.pagina - 1;
+                console.log(this.pagina);
+                this.paginaActual.innerHTML = this.pagina + 1;
+                const res = api.consultarApi('/?busqueda=' + textoBuscar.value + "&&desde=" + this.pagina);
+                this.listarUsuariosDom(res);
+
+            }
+
+        })
+
+    }
+
+    eventoBtnBuscar() {
+        const domIndex = new DomIndex();
+        const api = new Api();
+        const res = api.consultarApi();
+        const btnBuscar = document.querySelector('#buscarNombre');
+        btnBuscar.addEventListener('click', (e) => {
+            const textoBuscar = document.querySelector('#textoBuscar');
+            const res = api.consultarApi('/?busqueda=' + textoBuscar.value);
+            domIndex.listarUsuariosDom(res);
+
+            this.paginaActual.innerHTML = 1;
+        })
 
     }
 }

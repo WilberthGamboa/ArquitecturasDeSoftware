@@ -13,6 +13,13 @@ const usersGet = async (req,res) =>{
               }
         }
     });
+    if (usuarios.length== 0) {
+        console.log("hola")
+        res.status(400).json({
+            msg:"No existe"
+        })
+        return;
+    }
 
     console.log(usuarios)
    
