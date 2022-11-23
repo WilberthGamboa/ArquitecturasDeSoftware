@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>formUser/domFormUser.js - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Api.html">Api</a><ul class='methods'><li data-type='method'><a href="Api.html#.consultarApi#consultarApi">consultarApi</a></li><li data-type='method'><a href="Api.html#.deleteApi#deleteApi">deleteApi</a></li><li data-type='method'><a href="Api.html#.postApi#postApi">postApi</a></li></ul></li><li><a href="DomFormUser.html">DomFormUser</a><ul class='methods'><li data-type='method'><a href="DomFormUser.html#.agregarUsuario#agregarUsuario">agregarUsuario</a></li><li data-type='method'><a href="DomFormUser.html#.alertAgregarUsuario#alertAgregarUsuario">alertAgregarUsuario</a></li><li data-type='method'><a href="DomFormUser.html#.alertarErrores#alertarErrores">alertarErrores</a></li><li data-type='method'><a href="DomFormUser.html#.obtenerValoresForm#obtenerValoresForm">obtenerValoresForm</a></li></ul></li><li><a href="DomIndex.html">DomIndex</a><ul class='methods'><li data-type='method'><a href="DomIndex.html#.eliminarUsuarioDom#eliminarUsuarioDom">eliminarUsuarioDom</a></li><li data-type='method'><a href="DomIndex.html#.listarUsuariosDom#listarUsuariosDom">listarUsuariosDom</a></li></ul></li><li><a href="RequestFormUser.html">RequestFormUser</a><ul class='methods'><li data-type='method'><a href="RequestFormUser.html#.manejadorSolicitudes#manejadorSolicitudes">manejadorSolicitudes</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#appFormUser">appFormUser</a></li><li><a href="global.html#appIndex">appIndex</a></li></ul>
+    
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">formUser/domFormUser.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Clase encargada de generar alertas y manipular el dom en la vista Agregar.
+ */
+
+class DomFormUser {
+
+  /**
+   * Constructor de la clase
+   * @constructor
+   */
+  constructor() {
+
+  }
+
+  /**
+   * Muestra una alerta cuando se agrega un usuario.
+   * @returns {void} 
+   */
+  alertAgregarUsuario() {
+
+    Swal.fire({
+      icon: 'success',
+      title: 'Guardado con éxito',
+      text: 'El usuario ha sido registrado',
+
+    })
+
+  }
+
+  /**
+   * Se utiliza cuando la respuesta del json es 400, dibujando en el dom los errores.
+   * @param {Promise} resJson Promesa con los errores almacenados en un Json.
+   * @returns {void}
+   */
+  alertarErrores(resJson) {
+    resJson.then(json => {
+      const arrayErrors = json['errors'];
+
+      const divNombre = document.querySelector('#divNombre');
+      const divNumero = document.querySelector('#divNumero');
+
+      if (divNombre.hasChildNodes) {
+        while (divNombre.hasChildNodes()) {
+          divNombre.removeChild(divNombre.firstChild);
+        }
+
+      }
+
+      if (divNumero.hasChildNodes) {
+        while (divNumero.hasChildNodes()) {
+          divNumero.removeChild(divNumero.firstChild);
+        }
+
+      }
+      arrayErrors.map(element => {
+        const p = document.createElement('P');
+
+        p.innerHTML = element['msg'];
+        p.classList = "flex justify-center items-center m-1 font-medium py-1 px-2 bg-white rounded-md text-red-100 bg-red-700 border border-red-700";
+
+
+        if (element['param'] == 'nombre') {
+
+          divNombre.appendChild(p);
+
+        }
+
+        if (element['param'] == 'numero') {
+
+          divNumero.appendChild(p);
+
+        }
+
+      });
+    })
+
+  }
+
+  /**
+ * Método que obtiene los valores del formulario
+ * @returns {Object} retorna el objeto para realizar una solicitud
+ */
+  obtenerValoresForm() {
+    const btnsInputNombre = document.querySelector('#nombre');
+    const btnsInputNumero = document.querySelector('#numero');
+    /**
+     * Objeto request
+     * @type{{nombre:string,numero:string}}
+     * 
+     */
+    const req = {
+      nombre: btnsInputNombre.value,
+      numero: btnsInputNumero.value
+    }
+    return req;
+  }
+
+  /**
+   * Realiza el llamado a la Api así como al manejadorSolicitudes()
+   * @param {Object} req Solicitud a enviar
+   * @returns {void}
+   */
+
+  async agregarUsuario  (req)  {
+    const api = new Api();
+    const requestFormUser = new RequestFormUser();
+    const res = api.postApi(req);
+    requestFormUser.manejadorSolicitudes(res);
+  
+  }
+
+}
+
+
+
+
+
+
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.0</a> on Mon Nov 21 2022 19:01:42 GMT-0600 (hora estándar central) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+
+
+</body>
+</html>

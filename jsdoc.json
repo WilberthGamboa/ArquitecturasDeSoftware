@@ -1,0 +1,29 @@
+{
+    "plugins": [""],
+    
+    "source": {
+        "include": ["public/scripts/formUser",
+    
+        "public/scripts/api",
+        "public/scripts/index"
+    
+    ],
+        
+       
+        "includePattern": ".js",
+        "excludePattern": "(node_modules|docs)"
+    },
+    
+    "templates": {
+        "cleverLinks": true,
+        "monospaceLinks": true
+    },
+    "opts": {
+        "encoding": "utf8",
+        
+        "recurse": true,
+        "template": "node_modules/docdash",
+    
+        "destination":"./doc"
+    }
+}

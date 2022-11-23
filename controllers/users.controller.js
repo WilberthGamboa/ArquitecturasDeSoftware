@@ -1,10 +1,22 @@
 const { validationResult } = require('express-validator');
+const { Op } = require("sequelize");
 const User = require('../models/user.model')
 
 const usersGet = async (req,res) =>{
+    const limite = 10;
+    const { desde = 0,busqueda=""}= req.query;
+    const usuarios = await User.findAll({
+        offset:desde , limit: limite,
+        where:{
+            nombre: {
+                [Op.like]: `%${busqueda}%`
+              }
+        }
+    });
+
+    console.log(usuarios)
    
-    const usuarios = await User.findAll();
-    console.log(usuarios);
+   // console.log(usuarios);
     res.json({usuarios});
 
 }
