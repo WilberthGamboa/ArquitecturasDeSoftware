@@ -55,7 +55,7 @@ class Api {
  * @param {String} req id del elemento a eliminar en la base de datos
  * @returns {Promise} Respuesta del servidor con la lista de usuarios
  */
- async deleteApi () {
+ async deleteApi (req) {
 
     try {
       const config = {
@@ -66,7 +66,8 @@ class Api {
         },
         
       }
-      const response = await fetch(`${this.url} ${req}`, config)
+      console.log(`${this.url}/${req}`)
+      const response = await fetch(`${this.url}/${req}`, config)
       return response;
 
     } catch (error) {

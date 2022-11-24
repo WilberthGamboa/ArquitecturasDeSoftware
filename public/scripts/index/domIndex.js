@@ -35,6 +35,8 @@ class DomIndex {
                         const api = new Api();
                         api.deleteApi(trActual.firstChild.textContent);
                         trActual.remove();
+                        const res = api.consultarApi('/?busqueda=' + textoBuscar.value + "&&desde=" + this.pagina);
+                        this.listarUsuariosDom(res);
                         Swal.fire(
                             'Borrado',
                             'Registro eliminado',
