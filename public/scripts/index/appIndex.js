@@ -9,11 +9,12 @@ const appIndex = () =>{
     const api = new Api();
     const domIndex = new DomIndex();
     const res = api.consultarApi();
-    domIndex.listarUsuariosDom(res);
-    domIndex.eliminarUsuarioDom();
+    domIndex.listarUsuarios(res);
+    domIndex.inicializarEliminacionUsuario();
     domIndex.eventoBtnAnterior();
     domIndex.eventoBtnSiguiente();
     domIndex.eventoBtnBuscar();
+    
   })
   
 }
