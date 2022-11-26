@@ -30,13 +30,15 @@ class DomIndex {
             function ejecutarEliminacion() {
                 //Obtenemos la columna a eliminar y la quitamos del dom
                 const trActual = e.target.parentNode.parentNode;
+                console.log("valor nodo hijo")
+                 console.log(trActual.childNodes[1].textContent)
                 console.log("arriba tr actual")
                 console.log(trActual);
                 //Llamamos a la api para eliminar el registro, obtenemos la lista con los registros actualizados
                 // y redibujamos el dom
                 const api = new Api();
                 console.log(Number(trActual.firstChild.textContent))
-                api.deleteApi(Number(trActual.firstChild.textContent));
+                api.deleteApi(Number(trActual.childNodes[1].textContent));
             }
 
             function recargarDom() {
