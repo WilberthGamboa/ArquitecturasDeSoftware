@@ -2,19 +2,34 @@ const { validationResult } = require('express-validator');
 const { Op } = require("sequelize");
 const User = require('../models/user.model')
 
+//Bug desde 
 const usersGet = async (req,res) =>{
-    const limite = 10;
-    const { desde = 0,busqueda=""}= req.query;
+    const limite = 5;
+    let { desde = 0,busqueda=""}= req.query;
+   
+    if (desde<0||isNaN(desde)) {
+        desde=0;
+    }
+
     const usuarios = await User.findAll({
-        offset:desde , limit: limite,
+        offset:Number(5*desde) , limit: limite,
         where:{
             nombre: {
-                [Op.like]: `%${busqueda}%`
+                [Op.like]: `%${String(busqueda)}%`
               }
         }
     });
+    /*
+    if (usuarios.length== 0) {
+        console.log("hola")
+        res.status(400).json({
+            msg:"No existe"
+        })
+        return;
+    }
+    */
 
-    console.log(usuarios)
+  //  console.log(usuarios)
    
    // console.log(usuarios);
     res.json({usuarios});
@@ -29,7 +44,6 @@ const userPost = async (req,res) =>{
         return res.status(400).json(errors);
     }
     */
-   
    
 
     try {
