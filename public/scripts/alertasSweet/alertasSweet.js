@@ -15,9 +15,9 @@ class AlertasSweet{
           })
     }
 
-     alertarUsuarioEliminado (ejecutarEliminacion,recargarDom){
+     async alertarUsuarioEliminado (){
        
-        Swal.fire({
+       return  Swal.fire({
             title: '¿Está seguro de eliminar este registro?',
             text: "Una vez eliminado, esta acción no se podrá deshacer",
             icon: 'warning',
@@ -25,7 +25,9 @@ class AlertasSweet{
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Eliminar'
-        }).then((result) => {
+        })
+        /*
+        .then((result) => {
             if (result.isConfirmed) {
                 ejecutarEliminacion();
                 Swal.fire(
@@ -40,11 +42,11 @@ class AlertasSweet{
                 const domIndex = new DomIndex();
             
                 domIndex.listarUsuarios(res);
-                */
+                
                recargarDom();
-             
             }
         })
+             */
         
     }
     
