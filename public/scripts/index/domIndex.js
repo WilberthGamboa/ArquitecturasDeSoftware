@@ -19,7 +19,7 @@ class DomIndex {
   listarUsuarios(res) {
     //Obtenemos la tabla donde se listastarán los usuarios;
     const tbody = document.querySelector("#tbody");
-    
+
     res.then((json) => {
       /**
        * Si las respuesta te un array vacio se alerta que no existe datos para mostrar
@@ -28,18 +28,18 @@ class DomIndex {
       if (json["usuarios"].length == 0) {
         const alertasSweet = new AlertasSweet();
         alertasSweet.alertarNoResultados();
-            /**
-             * En caso de realizar una busqueda a siguiente y no encontrar resultados
-             * es necesario que el contador vaya hacia atrás para así lograr que se pueda
-             * realizar la petición de nuevo 
-             * 
-             */
-            this.pagina--;
-            
+        /**
+         * En caso de realizar una busqueda a siguiente y no encontrar resultados
+         * es necesario que el contador vaya hacia atrás para así lograr que se pueda
+         * realizar la petición de nuevo 
+         * 
+         */
+        this.pagina--;
+
       } else {
-         // ! No tengo idea pq puse esto es aqui se adelanta
-         const x = this.pagina;
-         this.paginaActual.innerHTML = x + 1;
+        // ! No tengo idea pq puse esto es aqui se adelanta
+        const x = this.pagina;
+        this.paginaActual.innerHTML = x + 1;
         /**
          * Borra todos los nodos hijos del tbody para pegar los datos
          */
@@ -48,22 +48,22 @@ class DomIndex {
             tbody.removeChild(tbody.firstChild);
           }
         }
-       
-        
-    
+
+
+
         //Bucle encargado de pegar los datos en el dom (cantidad de filas)
         for (let index = 0; index < json.usuarios.length; index++) {
-         //Creamos la fila  y creamos le agregamos estilos
+          //Creamos la fila  y creamos le agregamos estilos
           const tr = document.createElement("tr");
           tr.classList =
-          "bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0";
+            "bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0";
           //Creamos el checkbox le agregamos clases y lo insertamos dentro dela fila
           const td = document.createElement("td");
           td.classList =
-          "w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static";
+            "w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static";
           const input = document.createElement("INPUT");
           input.type = "checkbox";
-          input.id="casilla";
+          input.id = "casilla";
           td.appendChild(input);
           tr.appendChild(td);
           //Obtenemos el array  le sacamos los elementos que no pegaremos
@@ -88,7 +88,7 @@ class DomIndex {
           imgDelete.classList = "w-10 inline-block ";
           imgDelete.src = "img/delete-svgrepo-com.svg";
           imgDelete.id = "eliminar";
-           //Agremgamos el editar
+          //Agremgamos el editar
           const imgEdit = document.createElement("img");
           imgEdit.src = "img/edit-svgrepo-com.svg";
           imgEdit.classList = "w-10 inline-block ";
@@ -101,7 +101,7 @@ class DomIndex {
         }
       }
     });
-   
+
   }
 
   /**
@@ -123,9 +123,9 @@ class DomIndex {
         // y redibujamos el dom
         const api = new Api();
         api.deleteApi(Number(trActual.childNodes[1].textContent));
-      
+
       };
-    
+
       //Identifica con el id si queremos eliminar
       if (e.target.id == "eliminar") {
         //Mostramos la alerta 
@@ -134,18 +134,18 @@ class DomIndex {
         promesaSweet.then((resultado) => {
           if (resultado.isConfirmed) {
             ejecutarEliminacion();
-            if (tbody.childElementCount==1) {
-                this.pagina=this.pagina-1;
+            if (tbody.childElementCount == 1) {
+              this.pagina = this.pagina - 1;
             }
             const api = new Api();
-            const res = api.consultarApi(textoBuscar.value, Number(this.pagina));    
+            const res = api.consultarApi(textoBuscar.value, Number(this.pagina));
             this.listarUsuarios(res);
-            
+
           }
         });
       }
     });
-      
+
   }
 
   eventoBtnSiguiente() {
@@ -157,7 +157,7 @@ class DomIndex {
       const res = api.consultarApi(textoBuscar.value, this.pagina);
       this.listarUsuarios(res);
     });
-   
+
   }
 
   eventoBtnAnterior() {
@@ -171,7 +171,7 @@ class DomIndex {
         this.listarUsuarios(res);
       }
     });
-   
+
   }
 
   eventoBtnBuscar() {
@@ -182,45 +182,109 @@ class DomIndex {
       const textoBuscar = document.querySelector("#textoBuscar");
       const res = api.consultarApi(textoBuscar.value);
       domIndex.listarUsuarios(res);
-        this.pagina=0;
-        this.paginaActual.innerHTML = 1;
-       
+      this.pagina = 0;
+      this.paginaActual.innerHTML = 1;
+
     });
-   
+
   }
 
-  eliminarConCheckBox(){
-   const btnBorrarConCheckbox = document.querySelector("#btnBorrarConCheckbox");
-    btnBorrarConCheckbox.addEventListener('click',(e)=>{
-        const casillas = document.querySelectorAll("#casilla");
-        const api = new Api();
-        let cantidadCheckbox =0;
-        for (let index = 0; index <casillas.length; index++) {
+  eliminarConCheckBox() {
+    const btnBorrarConCheckbox = document.querySelector("#btnBorrarConCheckbox");
+    btnBorrarConCheckbox.addEventListener('click', (e) => {
+      const alertasSweet = new AlertasSweet();
+      const promesaSweet = alertasSweet.alertarUsuarioEliminado();
+
+      const casillas = document.querySelectorAll("#casilla");
+      let confirmarMinimo =0;
+
+    for (let index = 0; index < casillas.length; index++) {
             if (casillas[index].checked) {
-                cantidadCheckbox++;
-                const trActual =casillas[index].parentNode.parentNode;
-             
-                api.deleteApi(Number(trActual.childNodes[1].textContent));
-              
+              confirmarMinimo++;
+
+
             }
-         
-            
-        }
-        const res = api.consultarApi(textoBuscar.value, Number(this.pagina));    
-        this.listarUsuarios(res);
+
+
+          }
+
+          if (confirmarMinimo==0) {
+            Swal.fire({
+              icon: 'error',
+              title: 'Petición no procesada',
+              text: 'No seleccionaste ningun elemento a eliminar',
+            })
+          }else{
+            promesaSweet.then((resultado => {
+              if (resultado.isConfirmed) {
+               
+                const casillas = document.querySelectorAll("#casilla");
+           
+                let cantidadCheckbox = 0;
+                const api = new Api();
+                for (let index = 0; index < casillas.length; index++) {
+                  
+                  if (casillas[index].checked) {
+                    cantidadCheckbox++;
+                    const trActual = casillas[index].parentNode.parentNode;
       
-        
-        const tbody = document.querySelector("#tbody");
-        console.log(tbody.childElementCount)
-   
-        if (tbody.childElementCount==cantidadCheckbox) {
-            this.pagina=this.pagina-1;
-            const res = api.consultarApi(textoBuscar.value, Number(this.pagina));    
-            this.listarUsuarios(res);
-        }
-        
+                    api.deleteApi(Number(trActual.childNodes[1].textContent));
       
-       
+                  }
+      
+      
+                }
+          
+      
+                
+               
+                
+      
+                if (tbody.childElementCount == cantidadCheckbox) {
+                  this.paginaActual.innerHTML=this.pagina;
+                  this.pagina = this.pagina - 1;
+                
+                  const res = api.consultarApi(textoBuscar.value, Number(this.pagina));
+                  this.listarUsuarios(res);
+                  //this.paginaActual.innerHTML=this.pagina+1;
+                }else{
+     
+                  const res = api.consultarApi(textoBuscar.value, Number(this.pagina));
+                  this.listarUsuarios(res);
+                }
+      
+              }
+            }))
+          }
+
+
+     
+
+
+
+
+    })
+  }
+
+  marcarCheckBox() {
+    const checkBoxPadre = document.querySelector('#checkBoxPrincipal');
+    checkBoxPadre.addEventListener('click', (e) => {
+      const casillas = document.querySelectorAll("#casilla");
+      if (checkBoxPadre.checked) {
+
+        for (let index = 0; index < casillas.length; index++) {
+          casillas[index].checked = true;
+
+
+        }
+      } else {
+        for (let index = 0; index < casillas.length; index++) {
+          casillas[index].checked = false;
+
+
+        }
+
+      }
     })
   }
 }

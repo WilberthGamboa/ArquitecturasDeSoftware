@@ -13,6 +13,7 @@ const appIndex = () => {
     domIndex.eventoBtnSiguiente();
     domIndex.eventoBtnBuscar();
     domIndex.eliminarConCheckBox();
+    domIndex.marcarCheckBox();
   });
 };
 
