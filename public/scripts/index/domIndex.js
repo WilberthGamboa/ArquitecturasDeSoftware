@@ -21,14 +21,7 @@ class DomIndex {
     //Obtenemos la tabla donde se listastarán los usuarios;
     const tbody = document.querySelector("#tbody");
 
-    res.then((json) => {
-      /**
-         * Se pone aquí en vez del btn siguiente porque de lo contrario 
-         * se adelantaría siempre en el dom y al momento de llegar al límite se tendría que restar 
-         * lo que haría que en el dom se actualice dos veces el índice 
-         */
-       
-       
+    res.then((json) => {   
         /**
          * Borra todos los nodos hijos del tbody para pegar los datos
          */
@@ -102,16 +95,6 @@ class DomIndex {
      */
     const tablebody = document.querySelector("#tbody");
     tablebody.addEventListener("click", (e) => {
-     
-
-         const prueba = () =>{
-        const api = new Api();
-        const res = api.consultarApi(textoBuscar.value, Number(this.pagina));
-       
-        
-            this.listarUsuarios(res);
-      }
-
       //Identifica con el id si queremos eliminar
       if (e.target.id == "eliminar") {
         //Mostramos la alerta 
@@ -119,28 +102,18 @@ class DomIndex {
         const promesaSweet = alertasSweet.alertarUsuarioEliminado();
         promesaSweet.then((resultado) => {
           if (resultado.isConfirmed) {
-         //   ejecutarEliminacion();
-           //Obtenemos la columna a eliminar y la quitamos del dom
         const trActual = e.target.parentNode.parentNode;
-        //Llamamos a la api para eliminar el registro, obtenemos la lista con los registros actualizados
-        // y redibujamos el dom
         const api = new Api();
         const res =api.deleteApi(Number(trActual.childNodes[1].textContent));
             res.then(estado=>{
               if(estado.status==200){
-                console.log("estado 200")
                 if (tbody.childElementCount == 1) {
+                  this.paginaActual.innerHTML=this.pagina;
                   this.pagina = this.pagina - 1;
                 }
-                prueba();
+               this.procesoActualizarDom();
               }
             })
-            
-            
-            
-            
-            
-
           }
         });
       }
@@ -151,9 +124,7 @@ class DomIndex {
   eventoBtnSiguiente() {
     const btnSiguiente = document.querySelector("#btnSiguiente");
     btnSiguiente.addEventListener("click", (e) => {
-      //Core
       this.pagina++;
-    //  this.paginaActual.innerHTML = this.pagina+1;
       const api = new Api();
       const res = api.consultarApi(this.textoQueryBuscar, this.pagina);
       res.then(respuesta=>{
@@ -162,7 +133,7 @@ class DomIndex {
           this.paginaActual.innerHTML= this.pagina+1;
         }else{
           const alertasSweet = new AlertasSweet();
-        alertasSweet.alertarNoResultados();
+          alertasSweet.alertarNoResultados();
           this.pagina--;
         }
       })
@@ -237,13 +208,6 @@ class DomIndex {
               text: 'No seleccionaste ningun elemento a eliminar',
             })
           }else{
-            const prueba = () => {
-              const api = new Api();
-              const res = api.consultarApi(textoBuscar.value, Number(this.pagina));
-            
-              console.log("prueba")
-              this.listarUsuarios(res);
-          }
             promesaSweet.then((resultado => {
               if (resultado.isConfirmed) {
                
@@ -276,7 +240,7 @@ class DomIndex {
                              
                                 //setTimeout(prueba,650)
                             }
-                            prueba();
+                           this.procesoActualizarDom();
                             
                           }
                       }
@@ -324,5 +288,11 @@ class DomIndex {
 
       }
     })
+  }
+
+  procesoActualizarDom(){
+    const api = new Api();
+    const res = api.consultarApi(this.textoQueryBuscar, Number(this.pagina));
+    this.listarUsuarios(res);
   }
 }
