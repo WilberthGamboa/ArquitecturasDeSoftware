@@ -32,6 +32,7 @@ const usersGet = async (req,res) =>{
   //  console.log(usuarios)
    
    // console.log(usuarios);
+   console.log(usuarios)
     res.json({usuarios});
 
 }
@@ -85,7 +86,7 @@ const userDelete = async (req,res) =>{
         })
         
     }
-
+    console.log(user)
     await user.destroy();
 
 

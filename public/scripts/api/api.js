@@ -67,6 +67,7 @@ class Api {
       }
       console.log(`${this.url}/${req}`)
       const response = await fetch(`${this.url}/${req}`, config)
+      console.log(response);
       return response;
 
     } catch (error) {

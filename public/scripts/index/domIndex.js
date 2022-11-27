@@ -25,6 +25,7 @@ class DomIndex {
        * Si las respuesta te un array vacio se alerta que no existe datos para mostrar
        * De lo contrario se pega en el dom
        */
+      console.log(json)
       if (json["usuarios"].length == 0) {
         const alertasSweet = new AlertasSweet();
         alertasSweet.alertarNoResultados();
@@ -126,6 +127,14 @@ class DomIndex {
 
       };
 
+      const prueba = () =>{
+        const api = new Api();
+        const res = api.consultarApi(textoBuscar.value, Number(this.pagina));
+        const domIndex = new DomIndex();
+        console.log("prueba")
+            domIndex.listarUsuarios(res);
+      }
+
       //Identifica con el id si queremos eliminar
       if (e.target.id == "eliminar") {
         //Mostramos la alerta 
@@ -137,9 +146,10 @@ class DomIndex {
             if (tbody.childElementCount == 1) {
               this.pagina = this.pagina - 1;
             }
-            const api = new Api();
-            const res = api.consultarApi(textoBuscar.value, Number(this.pagina));
-            this.listarUsuarios(res);
+            setTimeout(prueba,100) 
+            prueba();
+            
+            
 
           }
         });
@@ -223,34 +233,36 @@ class DomIndex {
                 let cantidadCheckbox = 0;
                 const api = new Api();
                 for (let index = 0; index < casillas.length; index++) {
-                  
                   if (casillas[index].checked) {
                     cantidadCheckbox++;
                     const trActual = casillas[index].parentNode.parentNode;
-      
                     api.deleteApi(Number(trActual.childNodes[1].textContent));
       
                   }
       
       
                 }
-          
-      
                 
-               
-                
+                const prueba =() =>{
+                    const api = new Api();
+                    const res = api.consultarApi(textoBuscar.value, Number(this.pagina));
+                    const domIndex = new DomIndex();
+                    console.log("prueba")
+                    domIndex.listarUsuarios(res);
+                }
+
       
                 if (tbody.childElementCount == cantidadCheckbox) {
                   this.paginaActual.innerHTML=this.pagina;
-                  this.pagina = this.pagina - 1;
-                
-                  const res = api.consultarApi(textoBuscar.value, Number(this.pagina));
-                  this.listarUsuarios(res);
+                  if (!this.pagina==0) {
+                    this.pagina = this.pagina - 1;
+                    
+                  }
+                  setTimeout(prueba,100)
                   //this.paginaActual.innerHTML=this.pagina+1;
                 }else{
      
-                  const res = api.consultarApi(textoBuscar.value, Number(this.pagina));
-                  this.listarUsuarios(res);
+                    setTimeout(prueba,650)
                 }
       
               }
