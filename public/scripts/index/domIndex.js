@@ -10,6 +10,7 @@ class DomIndex {
   constructor() {
     this.pagina = 0;
     this.paginaActual = document.querySelector("#paginaActual");
+    this.textoQueryBuscar="";
   }
   /**
    * Método encargado de agregar los a la tabla del dom
@@ -22,35 +23,20 @@ class DomIndex {
 
     res.then((json) => {
       /**
-       * Si las respuesta te un array vacio se alerta que no existe datos para mostrar
-       * De lo contrario se pega en el dom
-       */
-      console.log(json)
-      if (json["usuarios"].length == 0) {
-        const alertasSweet = new AlertasSweet();
-        alertasSweet.alertarNoResultados();
-        /**
-         * En caso de realizar una busqueda a siguiente y no encontrar resultados
-         * es necesario que el contador vaya hacia atrás para así lograr que se pueda
-         * realizar la petición de nuevo 
-         * 
+         * Se pone aquí en vez del btn siguiente porque de lo contrario 
+         * se adelantaría siempre en el dom y al momento de llegar al límite se tendría que restar 
+         * lo que haría que en el dom se actualice dos veces el índice 
          */
-        this.pagina--;
-
-      } else {
-        // ! No tengo idea pq puse esto es aqui se adelanta
-        const x = this.pagina;
-        this.paginaActual.innerHTML = x + 1;
+       
+       
         /**
          * Borra todos los nodos hijos del tbody para pegar los datos
          */
-        if (tbody.hasChildNodes) {
+         if (tbody.hasChildNodes) {
           while (tbody.hasChildNodes()) {
             tbody.removeChild(tbody.firstChild);
           }
         }
-
-
 
         //Bucle encargado de pegar los datos en el dom (cantidad de filas)
         for (let index = 0; index < json.usuarios.length; index++) {
@@ -100,7 +86,6 @@ class DomIndex {
           tr.appendChild(td1);
           tbody.appendChild(tr);
         }
-      }
     });
 
   }
@@ -117,22 +102,13 @@ class DomIndex {
      */
     const tablebody = document.querySelector("#tbody");
     tablebody.addEventListener("click", (e) => {
-      const ejecutarEliminacion = () => {
-        
-        //Obtenemos la columna a eliminar y la quitamos del dom
-        const trActual = e.target.parentNode.parentNode;
-        //Llamamos a la api para eliminar el registro, obtenemos la lista con los registros actualizados
-        // y redibujamos el dom
-        const api = new Api();
-        api.deleteApi(Number(trActual.childNodes[1].textContent));
-        
-      };
+     
 
-      const prueba = () =>{
+         const prueba = () =>{
         const api = new Api();
         const res = api.consultarApi(textoBuscar.value, Number(this.pagina));
        
-        console.log("prueba")
+        
             this.listarUsuarios(res);
       }
 
@@ -177,9 +153,20 @@ class DomIndex {
     btnSiguiente.addEventListener("click", (e) => {
       //Core
       this.pagina++;
+    //  this.paginaActual.innerHTML = this.pagina+1;
       const api = new Api();
-      const res = api.consultarApi(textoBuscar.value, this.pagina);
-      this.listarUsuarios(res);
+      const res = api.consultarApi(this.textoQueryBuscar, this.pagina);
+      res.then(respuesta=>{
+        if (respuesta["usuarios"].length!=0) {
+          this.listarUsuarios(res);
+          this.paginaActual.innerHTML= this.pagina+1;
+        }else{
+          const alertasSweet = new AlertasSweet();
+        alertasSweet.alertarNoResultados();
+          this.pagina--;
+        }
+      })
+      
     });
 
   }
@@ -191,7 +178,7 @@ class DomIndex {
         this.paginaActual.innerHTML = this.pagina;
         this.pagina--;
         const api = new Api();
-        const res = api.consultarApi(textoBuscar.value, this.pagina);
+        const res = api.consultarApi( this.textoQueryBuscar, this.pagina);
         this.listarUsuarios(res);
       }
     });
@@ -199,15 +186,26 @@ class DomIndex {
   }
 
   eventoBtnBuscar() {
-    const domIndex = new DomIndex();
+   
     const api = new Api();
     const btnBuscar = document.querySelector("#buscarNombre");
     btnBuscar.addEventListener("click", (e) => {
       const textoBuscar = document.querySelector("#textoBuscar");
-      const res = api.consultarApi(textoBuscar.value);
-      domIndex.listarUsuarios(res);
-      this.pagina = 0;
-      this.paginaActual.innerHTML = 1;
+      this.textoQueryBuscar = textoBuscar.value;
+      const res = api.consultarApi(this.textoQueryBuscar);
+      res.then(resultado =>{
+        if (resultado["usuarios"].length==0) {
+          console.log("no encontré nada te dejo donde estás");
+          this.textoQueryBuscar="";
+          console.log(this.pagina);
+        }else{
+          this.listarUsuarios(res);
+          this.pagina = 0;
+          this.paginaActual.innerHTML = 1;
+
+        }
+      })
+     
 
     });
 
