@@ -88,7 +88,7 @@ const userDelete = async (req,res) =>{
     }
     console.log(user)
     await user.destroy();
-
+    res.json(user);
 
 
 }

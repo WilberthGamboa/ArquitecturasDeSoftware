@@ -118,21 +118,22 @@ class DomIndex {
     const tablebody = document.querySelector("#tbody");
     tablebody.addEventListener("click", (e) => {
       const ejecutarEliminacion = () => {
+        
         //Obtenemos la columna a eliminar y la quitamos del dom
         const trActual = e.target.parentNode.parentNode;
         //Llamamos a la api para eliminar el registro, obtenemos la lista con los registros actualizados
         // y redibujamos el dom
         const api = new Api();
         api.deleteApi(Number(trActual.childNodes[1].textContent));
-
+        
       };
 
       const prueba = () =>{
         const api = new Api();
         const res = api.consultarApi(textoBuscar.value, Number(this.pagina));
-        const domIndex = new DomIndex();
+       
         console.log("prueba")
-            domIndex.listarUsuarios(res);
+            this.listarUsuarios(res);
       }
 
       //Identifica con el id si queremos eliminar
@@ -142,12 +143,25 @@ class DomIndex {
         const promesaSweet = alertasSweet.alertarUsuarioEliminado();
         promesaSweet.then((resultado) => {
           if (resultado.isConfirmed) {
-            ejecutarEliminacion();
-            if (tbody.childElementCount == 1) {
-              this.pagina = this.pagina - 1;
-            }
-            setTimeout(prueba,100) 
-            prueba();
+         //   ejecutarEliminacion();
+           //Obtenemos la columna a eliminar y la quitamos del dom
+        const trActual = e.target.parentNode.parentNode;
+        //Llamamos a la api para eliminar el registro, obtenemos la lista con los registros actualizados
+        // y redibujamos el dom
+        const api = new Api();
+        const res =api.deleteApi(Number(trActual.childNodes[1].textContent));
+            res.then(estado=>{
+              if(estado.status==200){
+                console.log("estado 200")
+                if (tbody.childElementCount == 1) {
+                  this.pagina = this.pagina - 1;
+                }
+                prueba();
+              }
+            })
+            
+            
+            
             
             
 
@@ -225,45 +239,59 @@ class DomIndex {
               text: 'No seleccionaste ningun elemento a eliminar',
             })
           }else{
+            const prueba = () => {
+              const api = new Api();
+              const res = api.consultarApi(textoBuscar.value, Number(this.pagina));
+            
+              console.log("prueba")
+              this.listarUsuarios(res);
+          }
             promesaSweet.then((resultado => {
               if (resultado.isConfirmed) {
                
                 const casillas = document.querySelectorAll("#casilla");
            
                 let cantidadCheckbox = 0;
+                let contadorPromesa = 0;
                 const api = new Api();
                 for (let index = 0; index < casillas.length; index++) {
                   if (casillas[index].checked) {
                     cantidadCheckbox++;
                     const trActual = casillas[index].parentNode.parentNode;
-                    api.deleteApi(Number(trActual.childNodes[1].textContent));
-      
+                    const res = api.deleteApi(Number(trActual.childNodes[1].textContent));
+                    res.then(respuesta =>{
+                      if (respuesta.status==200) {
+                          contadorPromesa++;
+                          console.log("Soy contador promesa" + contadorPromesa)
+                          if (contadorPromesa==confirmarMinimo) {
+                            if (tbody.childElementCount == cantidadCheckbox) {
+                              this.paginaActual.innerHTML=this.pagina;
+                              if (!this.pagina==0) {
+                                this.pagina = this.pagina - 1;
+                                
+                              }
+                              
+                              
+                              //setTimeout(prueba,100)  
+                              //this.paginaActual.innerHTML=this.pagina+1;
+                            }else{
+                             
+                                //setTimeout(prueba,650)
+                            }
+                            prueba();
+                            
+                          }
+                      }
+                    })
                   }
       
       
                 }
                 
-                const prueba =() =>{
-                    const api = new Api();
-                    const res = api.consultarApi(textoBuscar.value, Number(this.pagina));
-                    const domIndex = new DomIndex();
-                    console.log("prueba")
-                    domIndex.listarUsuarios(res);
-                }
+                
 
       
-                if (tbody.childElementCount == cantidadCheckbox) {
-                  this.paginaActual.innerHTML=this.pagina;
-                  if (!this.pagina==0) {
-                    this.pagina = this.pagina - 1;
-                    
-                  }
-                  setTimeout(prueba,100)
-                  //this.paginaActual.innerHTML=this.pagina+1;
-                }else{
-     
-                    setTimeout(prueba,650)
-                }
+              
       
               }
             }))
