@@ -1,53 +1,59 @@
-class AlertasSweet{
+/**
+ * Clase encargada de manegar las alertas proporciodas por SweetAlert2
+ *
+ *
+ */
 
-    constructor(){
+class AlertasSweet {
+  /**
+   * Constructor de la clase
+   * @constructor
+   *
+   */
+  constructor() {}
+  /**
+   * Método que muestra una alerta graciosa cuando no hay resultados para la consulta que se quiere realizar
+   * @param {String} query Texto que se proporciona dependiendo del texto que se quiera mostrar al usuario
+   * @returns {void}
+   */
+  alertarNoResultados(query) {
+    Swal.fire({
+      title: "Wow!",
+      text: query,
+      imageUrl: "./img/error.gif",
+      imageWidth: 400,
+      imageHeight: 200,
+      imageAlt: "Custom image",
+    });
+  }
 
-    }
+  /**Método encargado de  alertar si realmente se quiere eliminar el registro
+   *
+   * @returns {Promise} retorna una promesa la cual se encarga de confirma la eliminación
+   *
+   */
+  async alertarUsuarioEliminado() {
+    return Swal.fire({
+      title: "¿Está seguro de eliminar este registro?",
+      text: "Una vez eliminado, esta acción no se podrá deshacer",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Eliminar",
+    });
+  }
 
-    alertarNoResultados(){
-        Swal.fire({
-            title: 'Wow!',
-            text: 'No hay más resultados para mostrar :D',
-            imageUrl: './img/error.gif',
-            imageWidth: 400,
-            imageHeight: 200,
-            imageAlt: 'Custom image',
-          })
-    }
+  /**
+   * Método encargado de mostrar una alerta cuando la petición no se puede procesar
+   * @param {String} query texto personalizado dependiendo del origen de alerta
+   */
 
-     async alertarUsuarioEliminado (){
-       
-       return  Swal.fire({
-            title: '¿Está seguro de eliminar este registro?',
-            text: "Una vez eliminado, esta acción no se podrá deshacer",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Eliminar'
-        })
-        /*
-        .then((result) => {
-            if (result.isConfirmed) {
-                ejecutarEliminacion();
-                Swal.fire(
-                    'Borrado',
-                    'Registro eliminado',
-                    'success'
-
-                )
-                /*
-                const api = new Api();
-                const res = api.consultarApi();
-                const domIndex = new DomIndex();
-            
-                domIndex.listarUsuarios(res);
-                
-               recargarDom();
-            }
-        })
-             */
-        
-    }
-    
+  alertarSolicitudNoProcesada(query) {
+    Swal.fire({
+      icon: "error",
+      title: "Petición no procesada",
+      text: query,
+    });
+  }
 }

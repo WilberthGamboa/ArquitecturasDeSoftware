@@ -29,7 +29,7 @@
 <nav >
     
     
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Api.html">Api</a><ul class='methods'><li data-type='method'><a href="Api.html#.consultarApi#consultarApi">consultarApi</a></li><li data-type='method'><a href="Api.html#.deleteApi#deleteApi">deleteApi</a></li><li data-type='method'><a href="Api.html#.postApi#postApi">postApi</a></li></ul></li><li><a href="DomFormUser.html">DomFormUser</a><ul class='methods'><li data-type='method'><a href="DomFormUser.html#.agregarUsuario#agregarUsuario">agregarUsuario</a></li><li data-type='method'><a href="DomFormUser.html#.alertAgregarUsuario#alertAgregarUsuario">alertAgregarUsuario</a></li><li data-type='method'><a href="DomFormUser.html#.alertarErrores#alertarErrores">alertarErrores</a></li><li data-type='method'><a href="DomFormUser.html#.obtenerValoresForm#obtenerValoresForm">obtenerValoresForm</a></li></ul></li><li><a href="DomIndex.html">DomIndex</a><ul class='methods'><li data-type='method'><a href="DomIndex.html#.eliminarUsuarioDom#eliminarUsuarioDom">eliminarUsuarioDom</a></li><li data-type='method'><a href="DomIndex.html#.listarUsuariosDom#listarUsuariosDom">listarUsuariosDom</a></li></ul></li><li><a href="RequestFormUser.html">RequestFormUser</a><ul class='methods'><li data-type='method'><a href="RequestFormUser.html#.manejadorSolicitudes#manejadorSolicitudes">manejadorSolicitudes</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#appFormUser">appFormUser</a></li><li><a href="global.html#appIndex">appIndex</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Api.html">Api</a><ul class='methods'><li data-type='method'><a href="Api.html#.consultarApi#consultarApi">consultarApi</a></li><li data-type='method'><a href="Api.html#.deleteApi#deleteApi">deleteApi</a></li><li data-type='method'><a href="Api.html#.postApi#postApi">postApi</a></li></ul></li><li><a href="DomFormUser.html">DomFormUser</a><ul class='methods'><li data-type='method'><a href="DomFormUser.html#.agregarUsuario#agregarUsuario">agregarUsuario</a></li><li data-type='method'><a href="DomFormUser.html#.alertAgregarUsuario#alertAgregarUsuario">alertAgregarUsuario</a></li><li data-type='method'><a href="DomFormUser.html#.alertarErrores#alertarErrores">alertarErrores</a></li><li data-type='method'><a href="DomFormUser.html#.obtenerValoresForm#obtenerValoresForm">obtenerValoresForm</a></li></ul></li><li><a href="DomIndex.html">DomIndex</a><ul class='methods'><li data-type='method'><a href="DomIndex.html#.eliminarConCheckBox#eliminarConCheckBox">eliminarConCheckBox</a></li><li data-type='method'><a href="DomIndex.html#.eventoBtnAnterior#eventoBtnAnterior">eventoBtnAnterior</a></li><li data-type='method'><a href="DomIndex.html#.eventoBtnBuscar#eventoBtnBuscar">eventoBtnBuscar</a></li><li data-type='method'><a href="DomIndex.html#.eventoBtnSiguiente#eventoBtnSiguiente">eventoBtnSiguiente</a></li><li data-type='method'><a href="DomIndex.html#.inicializarEliminacionUsuario#inicializarEliminacionUsuario">inicializarEliminacionUsuario</a></li><li data-type='method'><a href="DomIndex.html#.listarUsuarios#listarUsuarios">listarUsuarios</a></li><li data-type='method'><a href="DomIndex.html#.marcarCheckBox#marcarCheckBox">marcarCheckBox</a></li><li data-type='method'><a href="DomIndex.html#.procesoActualizarDom#procesoActualizarDom">procesoActualizarDom</a></li></ul></li><li><a href="RequestFormUser.html">RequestFormUser</a><ul class='methods'><li data-type='method'><a href="RequestFormUser.html#.manejadorSolicitudes#manejadorSolicitudes">manejadorSolicitudes</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#appFormUser">appFormUser</a></li><li><a href="global.html#appIndex">appIndex</a></li></ul>
     
 </nav>
 
@@ -62,10 +62,10 @@ class Api {
    * @returns {Promise} Promesa con los usuarios de la base de datos
    * 
    */
-  async consultarApi  ()  {
-    
+  async consultarApi  (busqueda="",desde="")  {
+    //const res = api.consultarApi('/?busqueda=' + textoBuscar.value + "&amp;&amp;desde=" + this.pagina);
     try {
-      const respuesta = await fetch(`${this.url}`);
+      const respuesta = await fetch(`${this.url}/?busqueda=${busqueda}&amp;&amp;desde=${desde}`);
       if (respuesta.status == 200) {
         const json = await respuesta.json();
         return json;
@@ -101,7 +101,7 @@ class Api {
  * @param {String} req id del elemento a eliminar en la base de datos
  * @returns {Promise} Respuesta del servidor con la lista de usuarios
  */
- async deleteApi () {
+ async deleteApi (req) {
 
     try {
       const config = {
@@ -112,7 +112,9 @@ class Api {
         },
         
       }
-      const response = await fetch(`${this.url} ${req}`, config)
+      console.log(`${this.url}/${req}`)
+      const response = await fetch(`${this.url}/${req}`, config)
+      console.log(response);
       return response;
 
     } catch (error) {
@@ -141,7 +143,7 @@ class Api {
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.0</a> on Mon Nov 21 2022 19:01:42 GMT-0600 (hora estándar central) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.0</a> on Sun Nov 27 2022 16:24:22 GMT-0600 (hora estándar central) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>

@@ -10,137 +10,178 @@ class DomIndex {
   constructor() {
     this.pagina = 0;
     this.paginaActual = document.querySelector("#paginaActual");
-    this.textoQueryBuscar="";
+    this.textoQueryBuscar = "";
   }
   /**
-   * Método encargado de agregar los a la tabla del dom
-   *
+   * Método encargado de agregar los datos a la tabla del dom
+   * @param {Promise} res Recibe una promesa que contiene la lista de usuarios.
    * @returns {void}
    */
   listarUsuarios(res) {
     //Obtenemos la tabla donde se listastarán los usuarios;
     const tbody = document.querySelector("#tbody");
-
-    res.then((json) => {   
-        /**
-         * Borra todos los nodos hijos del tbody para pegar los datos
-         */
-         if (tbody.hasChildNodes) {
-          while (tbody.hasChildNodes()) {
-            tbody.removeChild(tbody.firstChild);
-          }
+    res.then((json) => {
+      /**
+       * Borra todos los nodos hijos del tbody para pegar los datos
+       */
+      if (tbody.hasChildNodes) {
+        while (tbody.hasChildNodes()) {
+          tbody.removeChild(tbody.firstChild);
         }
-
-        //Bucle encargado de pegar los datos en el dom (cantidad de filas)
-        for (let index = 0; index < json.usuarios.length; index++) {
-          //Creamos la fila  y creamos le agregamos estilos
-          const tr = document.createElement("tr");
-          tr.classList =
-            "bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0";
-          //Creamos el checkbox le agregamos clases y lo insertamos dentro dela fila
+      }
+      //Bucle encargado de pegar los datos en el dom (cantidad de filas)
+      for (let index = 0; index < json.usuarios.length; index++) {
+        //Creamos la fila  y creamos le agregamos estilos
+        const tr = document.createElement("tr");
+        tr.classList =
+          "bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0";
+        //Creamos el checkbox le agregamos clases y lo insertamos dentro dela fila
+        const td = document.createElement("td");
+        td.classList =
+          "w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static";
+        const input = document.createElement("INPUT");
+        input.type = "checkbox";
+        input.id = "casilla";
+        td.appendChild(input);
+        tr.appendChild(td);
+        //Obtenemos el array  le sacamos los elementos que no pegaremos
+        const usuarios = json.usuarios[index];
+        const usuariosArray = Object.values(usuarios);
+        usuariosArray.pop();
+        usuariosArray.pop();
+        //Bucle encargado de insertar todos los campos de la fila y darle sus estilos correspondientes
+        usuariosArray.forEach((element) => {
           const td = document.createElement("td");
           td.classList =
             "w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static";
-          const input = document.createElement("INPUT");
-          input.type = "checkbox";
-          input.id = "casilla";
-          td.appendChild(input);
+          td.textContent = element;
           tr.appendChild(td);
-          //Obtenemos el array  le sacamos los elementos que no pegaremos
-          const usuarios = json.usuarios[index];
-          const usuariosArray = Object.values(usuarios);
-          usuariosArray.pop();
-          usuariosArray.pop();
-          //Bucle encargado de insertar todos los campos de la fila y darle sus estilos correspondientes
-          usuariosArray.forEach((element) => {
-            const td = document.createElement("td");
-            td.classList =
-              "w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static";
-            td.textContent = element;
-            tr.appendChild(td);
-          });
-          //Creamos el elemento que guardará las imagenes de editar y eliminar y sus estilos
-          const td1 = document.createElement("td");
-          td1.classList =
-            "flex justify-center flex w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell flex-row";
-          //Agremgamos el delete
-          const imgDelete = document.createElement("img");
-          imgDelete.classList = "w-10 inline-block ";
-          imgDelete.src = "img/delete-svgrepo-com.svg";
-          imgDelete.id = "eliminar";
-          //Agremgamos el editar
-          const imgEdit = document.createElement("img");
-          imgEdit.src = "img/edit-svgrepo-com.svg";
-          imgEdit.classList = "w-10 inline-block ";
-          //Insertamos en el mismo campo
-          td1.appendChild(imgEdit);
-          td1.appendChild(imgDelete);
-          // Se inserta la celda en la fila y la fila en el cuerpo de la tabla
-          tr.appendChild(td1);
-          tbody.appendChild(tr);
-        }
+        });
+        //Creamos el elemento que guardará las imagenes de editar y eliminar y sus estilos
+        const td1 = document.createElement("td");
+        td1.classList =
+          "flex justify-center flex w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell flex-row";
+        //Agremgamos el delete
+        const imgDelete = document.createElement("img");
+        imgDelete.classList = "w-10 inline-block ";
+        imgDelete.src = "img/delete-svgrepo-com.svg";
+        imgDelete.id = "eliminar";
+        //Agremgamos el editar
+        const imgEdit = document.createElement("img");
+        imgEdit.src = "img/edit-svgrepo-com.svg";
+        imgEdit.classList = "w-10 inline-block ";
+        //Insertamos en el mismo campo
+        td1.appendChild(imgEdit);
+        td1.appendChild(imgDelete);
+        // Se inserta la celda en la fila y la fila en el cuerpo de la tabla
+        tr.appendChild(td1);
+        tbody.appendChild(tr);
+      }
     });
-
   }
 
   /**
-   * Método encargado de eliminar el usuario de la tabla principal la vista index
+   * Método encargado de eliminar el usuario de la tabla principal de la vista index
    * @returns {void}
    */
   inicializarEliminacionUsuario() {
     /**
      * Obtenemos el cuerpo de la tabla y le agregamos el evento click
-     * El propósito de esto es para identificar al boton delete
+     * El propósito de esto es para identificar al botón borrar dentro
+     * de la tabla
      *
      */
     const tablebody = document.querySelector("#tbody");
     tablebody.addEventListener("click", (e) => {
       //Identifica con el id si queremos eliminar
       if (e.target.id == "eliminar") {
-        //Mostramos la alerta 
+        //Mostramos la alerta
         const alertasSweet = new AlertasSweet();
+        //Recibimos la promesa de alertasSweet y la procesamos
         const promesaSweet = alertasSweet.alertarUsuarioEliminado();
         promesaSweet.then((resultado) => {
           if (resultado.isConfirmed) {
-        const trActual = e.target.parentNode.parentNode;
-        const api = new Api();
-        const res =api.deleteApi(Number(trActual.childNodes[1].textContent));
-            res.then(estado=>{
-              if(estado.status==200){
+            //Subimos en el dom para obtener la fila actual y la guardamos
+            const trActual = e.target.parentNode.parentNode;
+            //Creamos la solicitud a la api parra borrar
+            const api = new Api();
+            const res = api.deleteApi(
+              Number(trActual.childNodes[1].textContent)
+            );
+            //Procesamos el estado
+            res.then((estado) => {
+              if (estado.status == 200) {
+                /**
+                 * Si en el cuerpo de la tabla queda uno y se va a eliminar
+                 * significa que tenemos que pedir una posición anterior
+                 * porque al volver a redibujar el dom nos devolverá nulo
+                 * ya que no existen consultas ya que se eliminó la última.
+                 *
+                 */
                 if (tbody.childElementCount == 1) {
-                  this.paginaActual.innerHTML=this.pagina;
+                  this.paginaActual.innerHTML = this.pagina;
                   this.pagina = this.pagina - 1;
                 }
-               this.procesoActualizarDom();
+                this.procesoActualizarDom();
               }
-            })
+            });
           }
         });
       }
     });
-
   }
+
+  /**
+   * Método encargado
+   * de realizar todas las consultas necesarias para navegar 
+   * hacia adelante en el paginado de la tabla.
+   * 
+   * @returns {void}
+   * 
+   * 
+   */
 
   eventoBtnSiguiente() {
     const btnSiguiente = document.querySelector("#btnSiguiente");
     btnSiguiente.addEventListener("click", (e) => {
+      
       this.pagina++;
+      /**
+       * Creamos la consulta para obtener los valores siguientes de la tabla
+       * procesamos la respuesta si la respuesta llega a ser 0 significa que no hay datos,
+       * por lo cual se decrece la página logicamente y no se actualiza el dom, mostrando la 
+       * alerta correspondiente que no se encontraron más usuarios
+       * 
+       * La utilidad del this.pagina es que al momento de mandar la consulta aumentar el valor total 
+       * de la página para así ir navegando en las peticiones, (cómo si fuera el índice de un arreglo)
+       * 
+       * La página actual simplemente es la forma visual;
+       * 
+       */
       const api = new Api();
       const res = api.consultarApi(this.textoQueryBuscar, this.pagina);
-      res.then(respuesta=>{
-        if (respuesta["usuarios"].length!=0) {
+      res.then((respuesta) => {
+        if (respuesta["usuarios"].length != 0) {
           this.listarUsuarios(res);
-          this.paginaActual.innerHTML= this.pagina+1;
-        }else{
+          this.paginaActual.innerHTML = this.pagina + 1;
+        } else {
           const alertasSweet = new AlertasSweet();
-          alertasSweet.alertarNoResultados();
+          alertasSweet.alertarNoResultados('No hay más resultados para mostrar :D');
           this.pagina--;
         }
-      })
-      
+      });
     });
-
   }
+
+  /**
+   * Método encargado 
+   * de realizar todas las consultas necesarias para navegar 
+   * hacia adelante en el paginado de la tabla.
+   * 
+   * @returns {void}
+   * 
+   * 
+   */
 
   eventoBtnAnterior() {
     const btnAnterior = document.querySelector("#btnAnterior");
@@ -149,148 +190,162 @@ class DomIndex {
         this.paginaActual.innerHTML = this.pagina;
         this.pagina--;
         const api = new Api();
-        const res = api.consultarApi( this.textoQueryBuscar, this.pagina);
+        const res = api.consultarApi(this.textoQueryBuscar, this.pagina);
         this.listarUsuarios(res);
       }
     });
-
   }
+/**
+   * Método encargado 
+   * de realizar todas las consultas necesarias para buscar
+   * en la tabla.
+   * 
+   * @returns {void}
+   * 
+   * 
+   */
 
   eventoBtnBuscar() {
-   
-    const api = new Api();
+
     const btnBuscar = document.querySelector("#buscarNombre");
     btnBuscar.addEventListener("click", (e) => {
       const textoBuscar = document.querySelector("#textoBuscar");
       this.textoQueryBuscar = textoBuscar.value;
+      /**
+       * Procesamos la consulta, en caso de la respuesta ser nula, seteamos el query de busqueda 
+       * a "" para que así no se realice ninguna busqueda al darle a los botones ya que estos 
+       * 
+       * De lo contrario procesamos la consulta y reiniciamos el dom para empezar la nevegación de nuevo
+       */
+      const api = new Api();
       const res = api.consultarApi(this.textoQueryBuscar);
-      res.then(resultado =>{
-        if (resultado["usuarios"].length==0) {
-          console.log("no encontré nada te dejo donde estás");
-          this.textoQueryBuscar="";
-          console.log(this.pagina);
-        }else{
+      res.then((resultado) => {
+        if (resultado["usuarios"].length == 0) { 
+          this.textoQueryBuscar = "";
+        
+        } else {
           this.listarUsuarios(res);
           this.pagina = 0;
           this.paginaActual.innerHTML = 1;
-
         }
-      })
-     
-
+      });
     });
-
   }
 
+  /**
+   * Método encargado de procesar todo lo necesario para eliminar todas las casillas seleccionas 
+   * al darle click al boton eliminar 
+   * @return {void}
+   */
   eliminarConCheckBox() {
-    const btnBorrarConCheckbox = document.querySelector("#btnBorrarConCheckbox");
-    btnBorrarConCheckbox.addEventListener('click', (e) => {
+    const btnBorrarConCheckbox = document.querySelector(
+      "#btnBorrarConCheckbox"
+    );
+    btnBorrarConCheckbox.addEventListener("click", (e) => {
       const alertasSweet = new AlertasSweet();
       const promesaSweet = alertasSweet.alertarUsuarioEliminado();
 
       const casillas = document.querySelectorAll("#casilla");
-      let confirmarMinimo =0;
+      let confirmarMinimo = 0;
+      //Ciclo de encontrar el número de casillas seleccionas
+      // TODO: Se puede mejorar con un ciclo while que te saque del bucle cuando encuentre una 
+      for (let index = 0; index < casillas.length; index++) {
+        if (casillas[index].checked) {
+          confirmarMinimo++;
+        }
+      }
 
-    for (let index = 0; index < casillas.length; index++) {
-            if (casillas[index].checked) {
-              confirmarMinimo++;
+      if (confirmarMinimo == 0) {
+        alertasSweet.alertarSolicitudNoProcesada("No seleccionaste ningun elemento a eliminar");
 
-
-            }
-
-
-          }
-
-          if (confirmarMinimo==0) {
-            Swal.fire({
-              icon: 'error',
-              title: 'Petición no procesada',
-              text: 'No seleccionaste ningun elemento a eliminar',
-            })
-          }else{
-            promesaSweet.then((resultado => {
-              if (resultado.isConfirmed) {
-               
-                const casillas = document.querySelectorAll("#casilla");
-           
-                let cantidadCheckbox = 0;
-                let contadorPromesa = 0;
-                const api = new Api();
-                for (let index = 0; index < casillas.length; index++) {
-                  if (casillas[index].checked) {
-                    cantidadCheckbox++;
-                    const trActual = casillas[index].parentNode.parentNode;
-                    const res = api.deleteApi(Number(trActual.childNodes[1].textContent));
-                    res.then(respuesta =>{
-                      if (respuesta.status==200) {
-                          contadorPromesa++;
-                          console.log("Soy contador promesa" + contadorPromesa)
-                          if (contadorPromesa==confirmarMinimo) {
-                            if (tbody.childElementCount == cantidadCheckbox) {
-                              this.paginaActual.innerHTML=this.pagina;
-                              if (!this.pagina==0) {
-                                this.pagina = this.pagina - 1;
-                                
-                              }
-                              
-                              
-                              //setTimeout(prueba,100)  
-                              //this.paginaActual.innerHTML=this.pagina+1;
-                            }else{
-                             
-                                //setTimeout(prueba,650)
-                            }
-                           this.procesoActualizarDom();
-                            
-                          }
-                      }
-                    })
+      } else {
+        promesaSweet.then((resultado) => {
+          if (resultado.isConfirmed) {
+            /**
+             * 
+             * 
+             */
+            let cantidadCheckbox = 0;
+            let contadorPromesa = 0;
+            const casillas = document.querySelectorAll("#casilla");
+            
+            const api = new Api();
+            /**
+             * Bucle encargado de procesar todas las consultas, se itera por cada casilla obteniendo el id 
+             * y se generan peticiones de eliminar
+             * 
+             * Se crea un contador cantidadcheckbox cargado de contar cuantos solicitudes se hicierion
+             * 
+             * 
+             */
+            for (let index = 0; index < casillas.length; index++) {
+              if (casillas[index].checked) {
+                cantidadCheckbox++;
+                const trActual = casillas[index].parentNode.parentNode;
+                const res = api.deleteApi(
+                  Number(trActual.childNodes[1].textContent)
+                );
+                //Se procesa la respuesta
+                //TODO se puede mejorar el código de estar parte
+                res.then((respuesta) => {
+                  if (respuesta.status == 200) {
+                    contadorPromesa++;
+                    //Si la cantidad de promesas procesadas es igual a la cantidad de casillas seleccioandas
+                    if (contadorPromesa == confirmarMinimo) {
+                      //Si cantidad cantillas existentes es igual al cantidad de casillas seleccionadas
+                      //significa que ya no existen elementos por lo que se debe retroceder en el paginado
+                      if (tbody.childElementCount == cantidadCheckbox) {
+                        this.paginaActual.innerHTML = this.pagina;
+                        if (!this.pagina == 0) {
+                          this.pagina = this.pagina - 1;
+                        }
+                      } 
+                      this.procesoActualizarDom();
+                    }
                   }
-      
-      
-                }
-                
-                
-
-      
-              
-      
+                });
               }
-            }))
+            }
+           
           }
+        });
 
+        //PROBAR AQUI
 
-     
-
-
-
-
-    })
+      }
+    });
   }
 
+  /**
+   * Método encargado de al momento de marcar o descarcar el checkbox padre
+   * los demás lo hagan junto con él
+   * 
+   * @return {void}
+   */
   marcarCheckBox() {
-    const checkBoxPadre = document.querySelector('#checkBoxPrincipal');
-    checkBoxPadre.addEventListener('click', (e) => {
+    const checkBoxPadre = document.querySelector("#checkBoxPrincipal");
+    checkBoxPadre.addEventListener("click", (e) => {
       const casillas = document.querySelectorAll("#casilla");
       if (checkBoxPadre.checked) {
-
         for (let index = 0; index < casillas.length; index++) {
           casillas[index].checked = true;
-
-
         }
       } else {
         for (let index = 0; index < casillas.length; index++) {
           casillas[index].checked = false;
-
-
         }
-
       }
-    })
+    });
   }
-
-  procesoActualizarDom(){
+/**
+ * 
+ * Método encargado de llamar al método consultar y llamar a listarUsuario
+ * se utiliza para evitar repetir este tramo de código en los demás métodos,
+ * no proporciona una funcionalidad nueva al sistema
+ * @return {void}
+ * 
+ */
+  procesoActualizarDom() {
     const api = new Api();
     const res = api.consultarApi(this.textoQueryBuscar, Number(this.pagina));
     this.listarUsuarios(res);

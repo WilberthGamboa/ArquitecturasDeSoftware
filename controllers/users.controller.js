@@ -19,33 +19,13 @@ const usersGet = async (req,res) =>{
               }
         }
     });
-    /*
-    if (usuarios.length== 0) {
-        console.log("hola")
-        res.status(400).json({
-            msg:"No existe"
-        })
-        return;
-    }
-    */
 
-  //  console.log(usuarios)
    
-   // console.log(usuarios);
-   console.log(usuarios)
     res.json({usuarios});
 
 }
 
 const userPost = async (req,res) =>{
-    
-    /*
-    const errors = validationResult(req);
-    if(!errors.isEmpty()){
-        return res.status(400).json(errors);
-    }
-    */
-   
 
     try {
         const {body} = req;
@@ -86,11 +66,8 @@ const userDelete = async (req,res) =>{
         })
         
     }
-    console.log(user)
     await user.destroy();
     res.json(user);
-
-
 }
 
 
