@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>formUser/appFormUser.js - Documentation</title>
+    <title>UserRequest - Documentation</title>
     
     
     <script src="scripts/prettify/prettify.js"></script>
@@ -35,52 +35,216 @@
 
 <div id="main">
     
-    <h1 class="page-title">formUser/appFormUser.js</h1>
+    <h1 class="page-title">UserRequest</h1>
     
 
     
 
 
 
+
+<section>
+
+<header>
     
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>
-/**
- * Función principal del formUser
- * @returns {void}
- * 
- */
-const appFormUser = () => {
-    document.addEventListener('DOMContentLoaded', function () {
-        const btnSubmit = document.querySelector('#btnSubmit');
-        btnSubmit.addEventListener('click', function (e) {
-            e.preventDefault();
-            const domFormUser = new DomFormUser();
-            const req = domFormUser.obtenerValoresForm();
-            domFormUser.agregarUsuario(req);
-        });
-    });
+        <h2>
+        
+            UserRequest
+        
+        </h2>
+        
+            <div class="class-description usertext">Modelo UserRequest</div>
+        
+    
+</header>
 
-}
-appFormUser();
+<article>
+    
+        <div class="container-overview">
+        
+            
 
+    
+    <h2>Constructor</h2>
+    
 
+    <h4 class="name" id="UserRequest"><span class="type-signature"></span>new UserRequest<span class="signature">(nombre, numero)</span><span class="type-signature"></span></h4>
 
-
-
+    
 
 
 
 
+<dl class="details">
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="model_userRequest.js.html">model/userRequest.js</a>, <a href="model_userRequest.js.html#line13">line 13</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
 
 
 
 
 
-</code></pre>
-        </article>
-    </section>
+
+
+
+
+
+
+
+
+    <h5 class="h5-parameters">Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>nombre</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">nombre del usuario</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>numero</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">numero del usuario</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+        </div>
+    
+
+    
+
+    
+
+    
+    
+    
+
+     
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 

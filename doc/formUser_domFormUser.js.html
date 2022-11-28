@@ -29,7 +29,7 @@
 <nav >
     
     
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Api.html">Api</a><ul class='methods'><li data-type='method'><a href="Api.html#.consultarApi#consultarApi">consultarApi</a></li><li data-type='method'><a href="Api.html#.deleteApi#deleteApi">deleteApi</a></li><li data-type='method'><a href="Api.html#.postApi#postApi">postApi</a></li></ul></li><li><a href="DomFormUser.html">DomFormUser</a><ul class='methods'><li data-type='method'><a href="DomFormUser.html#.agregarUsuario#agregarUsuario">agregarUsuario</a></li><li data-type='method'><a href="DomFormUser.html#.alertAgregarUsuario#alertAgregarUsuario">alertAgregarUsuario</a></li><li data-type='method'><a href="DomFormUser.html#.alertarErrores#alertarErrores">alertarErrores</a></li><li data-type='method'><a href="DomFormUser.html#.obtenerValoresForm#obtenerValoresForm">obtenerValoresForm</a></li></ul></li><li><a href="DomIndex.html">DomIndex</a><ul class='methods'><li data-type='method'><a href="DomIndex.html#.eliminarConCheckBox#eliminarConCheckBox">eliminarConCheckBox</a></li><li data-type='method'><a href="DomIndex.html#.eventoBtnAnterior#eventoBtnAnterior">eventoBtnAnterior</a></li><li data-type='method'><a href="DomIndex.html#.eventoBtnBuscar#eventoBtnBuscar">eventoBtnBuscar</a></li><li data-type='method'><a href="DomIndex.html#.eventoBtnSiguiente#eventoBtnSiguiente">eventoBtnSiguiente</a></li><li data-type='method'><a href="DomIndex.html#.inicializarEliminacionUsuario#inicializarEliminacionUsuario">inicializarEliminacionUsuario</a></li><li data-type='method'><a href="DomIndex.html#.listarUsuarios#listarUsuarios">listarUsuarios</a></li><li data-type='method'><a href="DomIndex.html#.marcarCheckBox#marcarCheckBox">marcarCheckBox</a></li><li data-type='method'><a href="DomIndex.html#.procesoActualizarDom#procesoActualizarDom">procesoActualizarDom</a></li></ul></li><li><a href="RequestFormUser.html">RequestFormUser</a><ul class='methods'><li data-type='method'><a href="RequestFormUser.html#.manejadorSolicitudes#manejadorSolicitudes">manejadorSolicitudes</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#appFormUser">appFormUser</a></li><li><a href="global.html#appIndex">appIndex</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="AlertasSweet.html">AlertasSweet</a><ul class='methods'><li data-type='method'><a href="AlertasSweet.html#.alertarNoResultados#alertarNoResultados">alertarNoResultados</a></li><li data-type='method'><a href="AlertasSweet.html#.alertarSolicitudNoProcesada#alertarSolicitudNoProcesada">alertarSolicitudNoProcesada</a></li><li data-type='method'><a href="AlertasSweet.html#.alertarUsuarioEliminado#alertarUsuarioEliminado">alertarUsuarioEliminado</a></li></ul></li><li><a href="Api.html">Api</a><ul class='methods'><li data-type='method'><a href="Api.html#.deleteApi#deleteApi">deleteApi</a></li><li data-type='method'><a href="Api.html#.getApi#getApi">getApi</a></li><li data-type='method'><a href="Api.html#.postApi#postApi">postApi</a></li><li data-type='method'><a href="Api.html#.putApi#putApi">putApi</a></li></ul></li><li><a href="DomFormUser.html">DomFormUser</a><ul class='methods'><li data-type='method'><a href="DomFormUser.html#.agregarUsuario#agregarUsuario">agregarUsuario</a></li><li data-type='method'><a href="DomFormUser.html#.alertAgregarUsuario#alertAgregarUsuario">alertAgregarUsuario</a></li><li data-type='method'><a href="DomFormUser.html#.alertarErrores#alertarErrores">alertarErrores</a></li><li data-type='method'><a href="DomFormUser.html#.obtenerValoresForm#obtenerValoresForm">obtenerValoresForm</a></li></ul></li><li><a href="DomIndex.html">DomIndex</a><ul class='methods'><li data-type='method'><a href="DomIndex.html#.eliminarConCheckBox#eliminarConCheckBox">eliminarConCheckBox</a></li><li data-type='method'><a href="DomIndex.html#.eventoBtnAnterior#eventoBtnAnterior">eventoBtnAnterior</a></li><li data-type='method'><a href="DomIndex.html#.eventoBtnBuscar#eventoBtnBuscar">eventoBtnBuscar</a></li><li data-type='method'><a href="DomIndex.html#.eventoBtnSiguiente#eventoBtnSiguiente">eventoBtnSiguiente</a></li><li data-type='method'><a href="DomIndex.html#.inicializarEliminacionyEdicionUsuario#inicializarEliminacionyEdicionUsuario">inicializarEliminacionyEdicionUsuario</a></li><li data-type='method'><a href="DomIndex.html#.listarUsuarios#listarUsuarios">listarUsuarios</a></li><li data-type='method'><a href="DomIndex.html#.marcarCheckBox#marcarCheckBox">marcarCheckBox</a></li><li data-type='method'><a href="DomIndex.html#.procesoActualizarDom#procesoActualizarDom">procesoActualizarDom</a></li><li data-type='method'><a href="DomIndex.html#.verificarCheckBoxNavegacion#verificarCheckBoxNavegacion">verificarCheckBoxNavegacion</a></li></ul></li><li><a href="RequestFormUser.html">RequestFormUser</a><ul class='methods'><li data-type='method'><a href="RequestFormUser.html#.manejadorSolicitudes#manejadorSolicitudes">manejadorSolicitudes</a></li></ul></li><li><a href="global.html#UserRequest">UserRequest</a></li></ul><h3>Global</h3><ul><li><a href="global.html#appFormUser">appFormUser</a></li><li><a href="global.html#appIndex">appIndex</a></li></ul>
     
 </nav>
 
@@ -79,7 +79,7 @@ class DomFormUser {
    * @param {Promise} resJson Promesa con los errores almacenados en un Json.
    * @returns {void}
    */
-  alertarErrores(resJson) {
+  alertarErrores(resJson) { 
     resJson.then(json => {
       const arrayErrors = json['errors'];
 
@@ -125,33 +125,43 @@ class DomFormUser {
 
   /**
  * Método que obtiene los valores del formulario
- * @returns {Object} retorna el objeto para realizar una solicitud
+ * @returns {UserRequest} retorna el objeto para realizar una solicitud
  */
   obtenerValoresForm() {
+    const divNombre = document.querySelector('#divNombre');
+      const divNumero = document.querySelector('#divNumero');
+
+      if (divNombre.hasChildNodes) {
+        while (divNombre.hasChildNodes()) {
+          divNombre.removeChild(divNombre.firstChild);
+        }
+
+      }
+
+      if (divNumero.hasChildNodes) {
+        while (divNumero.hasChildNodes()) {
+          divNumero.removeChild(divNumero.firstChild);
+        }
+
+      }
     const btnsInputNombre = document.querySelector('#nombre');
     const btnsInputNumero = document.querySelector('#numero');
-    /**
-     * Objeto request
-     * @type{{nombre:string,numero:string}}
-     * 
-     */
-    const req = {
-      nombre: btnsInputNombre.value,
-      numero: btnsInputNumero.value
-    }
-    return req;
+   
+    const userRequest = new UserRequest(btnsInputNombre.value,btnsInputNumero.value);
+ 
+    return userRequest;
   }
 
   /**
    * Realiza el llamado a la Api así como al manejadorSolicitudes()
-   * @param {Object} req Solicitud a enviar
+   * @param {UserRequest} userRequest Solicitud a enviar
    * @returns {void}
    */
 
-  async agregarUsuario  (req)  {
+  async agregarUsuario  (userRequest)  {
     const api = new Api();
     const requestFormUser = new RequestFormUser();
-    const res = api.postApi(req);
+    const res = api.postApi(userRequest);
     requestFormUser.manejadorSolicitudes(res);
   
   }
@@ -177,7 +187,7 @@ class DomFormUser {
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.0</a> on Sun Nov 27 2022 16:24:22 GMT-0600 (hora estándar central) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.0</a> on Sun Nov 27 2022 23:22:52 GMT-0600 (hora estándar central) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>

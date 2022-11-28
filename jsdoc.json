@@ -5,7 +5,9 @@
         "include": ["public/scripts/formUser",
     
         "public/scripts/api",
-        "public/scripts/index"
+        "public/scripts/index",
+        "public/scripts/alertasSweet",
+        "public/scripts/model"
     
     ],
         

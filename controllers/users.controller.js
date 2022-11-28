@@ -28,8 +28,9 @@ const usersGet = async (req,res) =>{
 const userPost = async (req,res) =>{
 
     try {
+      
         const {body} = req;
-
+        /*
         const existeUsuario = await User.findOne({
             where:{
                 nombre: body.nombre
@@ -42,7 +43,7 @@ const userPost = async (req,res) =>{
             })
             return;
         }
-       
+       */
 
 
         const user = new User(body);

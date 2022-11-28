@@ -32,7 +32,7 @@ class DomFormUser {
    * @param {Promise} resJson Promesa con los errores almacenados en un Json.
    * @returns {void}
    */
-  alertarErrores(resJson) {
+  alertarErrores(resJson) { 
     resJson.then(json => {
       const arrayErrors = json['errors'];
 
@@ -78,33 +78,43 @@ class DomFormUser {
 
   /**
  * Método que obtiene los valores del formulario
- * @returns {Object} retorna el objeto para realizar una solicitud
+ * @returns {UserRequest} retorna el objeto para realizar una solicitud
  */
   obtenerValoresForm() {
+    const divNombre = document.querySelector('#divNombre');
+      const divNumero = document.querySelector('#divNumero');
+
+      if (divNombre.hasChildNodes) {
+        while (divNombre.hasChildNodes()) {
+          divNombre.removeChild(divNombre.firstChild);
+        }
+
+      }
+
+      if (divNumero.hasChildNodes) {
+        while (divNumero.hasChildNodes()) {
+          divNumero.removeChild(divNumero.firstChild);
+        }
+
+      }
     const btnsInputNombre = document.querySelector('#nombre');
     const btnsInputNumero = document.querySelector('#numero');
-    /**
-     * Objeto request
-     * @type{{nombre:string,numero:string}}
-     * 
-     */
-    const req = {
-      nombre: btnsInputNombre.value,
-      numero: btnsInputNumero.value
-    }
-    return req;
+   
+    const userRequest = new UserRequest(btnsInputNombre.value,btnsInputNumero.value);
+ 
+    return userRequest;
   }
 
   /**
    * Realiza el llamado a la Api así como al manejadorSolicitudes()
-   * @param {Object} req Solicitud a enviar
+   * @param {UserRequest} userRequest Solicitud a enviar
    * @returns {void}
    */
 
-  async agregarUsuario  (req)  {
+  async agregarUsuario  (userRequest)  {
     const api = new Api();
     const requestFormUser = new RequestFormUser();
-    const res = api.postApi(req);
+    const res = api.postApi(userRequest);
     requestFormUser.manejadorSolicitudes(res);
   
   }

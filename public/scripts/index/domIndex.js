@@ -85,7 +85,7 @@ class DomIndex {
    * Método encargado de eliminar el usuario de la tabla principal de la vista index
    * @returns {void}
    */
-  inicializarEliminacionUsuario() {
+  inicializarEliminacionyEdicionUsuario() {
     /**
      * Obtenemos el cuerpo de la tabla y le agregamos el evento click
      * El propósito de esto es para identificar al botón borrar dentro
@@ -150,18 +150,11 @@ class DomIndex {
           const btnsInputId = document.querySelector("#id");
           const btnsInputNombre = document.querySelector("#nombre");
           const btnsInputNumero = document.querySelector("#numero");
-          console.log(btnsInputId.value)
-          /**
-           * Objeto request
-           * @type{{nombre:string,numero:string}}
-           *
-           */
-          const req = {
-            nombre: btnsInputNombre.value,
-            numero: btnsInputNumero.value,
-          };
+          const userRequest = new UserRequest(btnsInputNombre.value,btnsInputNumero.value);
+          
+          
           const api = new Api();
-          const res = api.putApi(btnsInputId.value,req);
+          const res = api.putApi(btnsInputId.value,userRequest);
           res.then((respuesta)=>{
 
             if (respuesta.status==200) {
@@ -187,8 +180,10 @@ class DomIndex {
    */
 
   eventoBtnSiguiente() {
+  
     const btnSiguiente = document.querySelector("#btnSiguiente");
     btnSiguiente.addEventListener("click", (e) => {
+      this.verificarCheckBoxNavegacion();
       this.pagina++;
       /**
        * Creamos la consulta para obtener los valores siguientes de la tabla
@@ -203,7 +198,7 @@ class DomIndex {
        *
        */
       const api = new Api();
-      const res = api.consultarApi(this.textoQueryBuscar, this.pagina);
+      const res = api.getApi(this.textoQueryBuscar, this.pagina);
       res.then((respuesta) => {
         if (respuesta["usuarios"].length != 0) {
           this.listarUsuarios(res);
@@ -230,13 +225,15 @@ class DomIndex {
    */
 
   eventoBtnAnterior() {
+   
     const btnAnterior = document.querySelector("#btnAnterior");
     btnAnterior.addEventListener("click", (e) => {
+      this.verificarCheckBoxNavegacion();
       if (this.pagina > 0) {
         this.paginaActual.innerHTML = this.pagina;
         this.pagina--;
         const api = new Api();
-        const res = api.consultarApi(this.textoQueryBuscar, this.pagina);
+        const res = api.getApi(this.textoQueryBuscar, this.pagina);
         this.listarUsuarios(res);
       }
     });
@@ -263,7 +260,7 @@ class DomIndex {
        * De lo contrario procesamos la consulta y reiniciamos el dom para empezar la nevegación de nuevo
        */
       const api = new Api();
-      const res = api.consultarApi(this.textoQueryBuscar);
+      const res = api.getApi(this.textoQueryBuscar);
       res.then((resultado) => {
         if (resultado["usuarios"].length == 0) {
           this.textoQueryBuscar = "";
@@ -339,7 +336,7 @@ class DomIndex {
                     if (contadorPromesa == confirmarMinimo) {
                       //Si cantidad cantillas existentes es igual al cantidad de casillas seleccionadas
                       //significa que ya no existen elementos por lo que se debe retroceder en el paginado
-                      if (tbody.childElementCount == cantidadCheckbox) {
+                      if (tbody.childElementCount == cantidadCheckbox && this.pagina!=0) {
                         this.paginaActual.innerHTML = this.pagina;
                         if (!this.pagina == 0) {
                           this.pagina = this.pagina - 1;
@@ -381,6 +378,20 @@ class DomIndex {
     });
   }
   /**
+   * Método encargado de verificar que al momento de navegar entre botones
+   * la casilla padre esté desmarcada
+   * @returns {void}
+   */
+
+  verificarCheckBoxNavegacion(){
+    
+    const checkBoxPadre = document.querySelector("#checkBoxPrincipal");
+    if (checkBoxPadre.checked) {
+    
+     checkBoxPadre.checked=false;
+    }
+  }
+  /**
    *
    * Método encargado de llamar al método consultar y llamar a listarUsuario
    * se utiliza para evitar repetir este tramo de código en los demás métodos,
@@ -390,9 +401,9 @@ class DomIndex {
    */
   procesoActualizarDom() {
     const api = new Api();
-    const res = api.consultarApi(this.textoQueryBuscar, Number(this.pagina));
+    const res = api.getApi(this.textoQueryBuscar, Number(this.pagina));
     this.listarUsuarios(res);
   }
 
-  ventanaModal() {}
+  
 }
