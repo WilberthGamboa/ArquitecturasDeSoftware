@@ -32,7 +32,7 @@
             <thead>
                 <tr>
                     <th>
-                        <input type="checkbox" id="checkBoxPrincipal"></th>
+                        <input type="checkbox" id="checkBoxPrincipal" class="p-3 font-bold uppercase bg-gray-200 text-gray-600 border-gray-300 hidden lg:table-cell "></th>
                     <th class="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">ID</th>
                     <th class="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">Nombre</th>
                     <th class="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">Número celular</th>
@@ -55,7 +55,50 @@
         <input id="btnSiguiente" type="button" value=">" class="border rounded-md bg-gray-100 px-2 py-1 text-3xl leading-6 text-slate-400 transition hover:bg-gray-200 hover:text-slate-500 cursor-pointer shadow-sm">
 
     </div>
+
+    
+    <div id="modal"
+        class="fixed top-0 left-0 w-screen h-screen flex items-center justify-center bg-gray-500 bg-opacity-90 transform scale-0 transition-transform duration-300">
+        <!-- Modal content -->
+        <div class="bg-white w-1/2 p-12 rounded"> 
+            <!--Close modal button-->
+
+                <!-- Hero icon - close button -->
+            <img class="w-10 inline-block rounded cursor-pointer "src="img\close-svgrepo-com.svg" alt="" id="closebutton" >
+        </input>
+            <form class=" ">
+                <div id="campoId" class="mb-5">
+                    <label for="id" class="mb-2 block uppercase text-gray-500 font-bold text-center">ID</label>
+                    <input id="id" type="text" placeholder="ID"  class="border p-3 w-full rounded-lg " disabled>
+                   
+                </div>
+                <div id="campoNombre" class="mb-5">
+                    <label for="nombre" class="mb-2 block uppercase text-gray-500 font-bold text-center">Nombre</label>
+                    <input id="nombre" type="text" placeholder="Nombre"  class="border p-3 w-full rounded-lg">
+                    
+                </div>
+                <div id="campoNumero" class="mb-5">
+                    <label for="numero" class="mb-2 block uppercase text-gray-500 font-bold text-center">Número</label>
+                    <input id="numero" type="text" placeholder="Número " class="border p-3 w-full rounded-lg">
+                  
+                </div>
+    
+    
+                <input id="btnSubmit" type="submit" value="Guardar"
+                
+                class="bg-sky-600 hover:bg-sky-700 transition-colors
+                    cursor-pointer uppercase font-bold w-full p-3 text-white rounded-lg "
+                
+                >
+            </form>
+        </div>
+        
+    </div>
+    
+    
+  
     <script src="scripts/api/api.js"></script>
+    <script src="scripts/model/userRequest.js"></script>
     <script src="scripts/index/domIndex.js"></script>
     <script src="scripts/alertasSweet/alertasSweet.js"></script>
     <script src="scripts/index/appIndex.js"></script>

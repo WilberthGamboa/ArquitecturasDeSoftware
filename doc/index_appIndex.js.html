@@ -29,7 +29,7 @@
 <nav >
     
     
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Api.html">Api</a><ul class='methods'><li data-type='method'><a href="Api.html#.consultarApi#consultarApi">consultarApi</a></li><li data-type='method'><a href="Api.html#.deleteApi#deleteApi">deleteApi</a></li><li data-type='method'><a href="Api.html#.postApi#postApi">postApi</a></li></ul></li><li><a href="DomFormUser.html">DomFormUser</a><ul class='methods'><li data-type='method'><a href="DomFormUser.html#.agregarUsuario#agregarUsuario">agregarUsuario</a></li><li data-type='method'><a href="DomFormUser.html#.alertAgregarUsuario#alertAgregarUsuario">alertAgregarUsuario</a></li><li data-type='method'><a href="DomFormUser.html#.alertarErrores#alertarErrores">alertarErrores</a></li><li data-type='method'><a href="DomFormUser.html#.obtenerValoresForm#obtenerValoresForm">obtenerValoresForm</a></li></ul></li><li><a href="DomIndex.html">DomIndex</a><ul class='methods'><li data-type='method'><a href="DomIndex.html#.eliminarUsuarioDom#eliminarUsuarioDom">eliminarUsuarioDom</a></li><li data-type='method'><a href="DomIndex.html#.listarUsuariosDom#listarUsuariosDom">listarUsuariosDom</a></li></ul></li><li><a href="RequestFormUser.html">RequestFormUser</a><ul class='methods'><li data-type='method'><a href="RequestFormUser.html#.manejadorSolicitudes#manejadorSolicitudes">manejadorSolicitudes</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#appFormUser">appFormUser</a></li><li><a href="global.html#appIndex">appIndex</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="AlertasSweet.html">AlertasSweet</a><ul class='methods'><li data-type='method'><a href="AlertasSweet.html#.alertarNoResultados#alertarNoResultados">alertarNoResultados</a></li><li data-type='method'><a href="AlertasSweet.html#.alertarSolicitudNoProcesada#alertarSolicitudNoProcesada">alertarSolicitudNoProcesada</a></li><li data-type='method'><a href="AlertasSweet.html#.alertarUsuarioEliminado#alertarUsuarioEliminado">alertarUsuarioEliminado</a></li></ul></li><li><a href="Api.html">Api</a><ul class='methods'><li data-type='method'><a href="Api.html#.deleteApi#deleteApi">deleteApi</a></li><li data-type='method'><a href="Api.html#.getApi#getApi">getApi</a></li><li data-type='method'><a href="Api.html#.postApi#postApi">postApi</a></li><li data-type='method'><a href="Api.html#.putApi#putApi">putApi</a></li></ul></li><li><a href="DomFormUser.html">DomFormUser</a><ul class='methods'><li data-type='method'><a href="DomFormUser.html#.agregarUsuario#agregarUsuario">agregarUsuario</a></li><li data-type='method'><a href="DomFormUser.html#.alertAgregarUsuario#alertAgregarUsuario">alertAgregarUsuario</a></li><li data-type='method'><a href="DomFormUser.html#.alertarErrores#alertarErrores">alertarErrores</a></li><li data-type='method'><a href="DomFormUser.html#.obtenerValoresForm#obtenerValoresForm">obtenerValoresForm</a></li></ul></li><li><a href="DomIndex.html">DomIndex</a><ul class='methods'><li data-type='method'><a href="DomIndex.html#.eliminarConCheckBox#eliminarConCheckBox">eliminarConCheckBox</a></li><li data-type='method'><a href="DomIndex.html#.eventoBtnAnterior#eventoBtnAnterior">eventoBtnAnterior</a></li><li data-type='method'><a href="DomIndex.html#.eventoBtnBuscar#eventoBtnBuscar">eventoBtnBuscar</a></li><li data-type='method'><a href="DomIndex.html#.eventoBtnSiguiente#eventoBtnSiguiente">eventoBtnSiguiente</a></li><li data-type='method'><a href="DomIndex.html#.inicializarEliminacionyEdicionUsuario#inicializarEliminacionyEdicionUsuario">inicializarEliminacionyEdicionUsuario</a></li><li data-type='method'><a href="DomIndex.html#.listarUsuarios#listarUsuarios">listarUsuarios</a></li><li data-type='method'><a href="DomIndex.html#.marcarCheckBox#marcarCheckBox">marcarCheckBox</a></li><li data-type='method'><a href="DomIndex.html#.procesoActualizarDom#procesoActualizarDom">procesoActualizarDom</a></li><li data-type='method'><a href="DomIndex.html#.verificarCheckBoxNavegacion#verificarCheckBoxNavegacion">verificarCheckBoxNavegacion</a></li></ul></li><li><a href="RequestFormUser.html">RequestFormUser</a><ul class='methods'><li data-type='method'><a href="RequestFormUser.html#.manejadorSolicitudes#manejadorSolicitudes">manejadorSolicitudes</a></li></ul></li><li><a href="global.html#UserRequest">UserRequest</a></li></ul><h3>Global</h3><ul><li><a href="global.html#appFormUser">appFormUser</a></li><li><a href="global.html#appIndex">appIndex</a></li></ul>
     
 </nav>
 
@@ -45,22 +45,26 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>
-appIndex();
-/**
+            <pre class="prettyprint source linenums"><code>/**
  * Inicia los scripts correspondientes a la vista index
  * @returns {void}
  */
-const appIndex = () =>{
-  document.addEventListener('DOMContentLoaded', function () {
+const appIndex = () => {
+  document.addEventListener("DOMContentLoaded", function () {
+    const api = new Api();
     const domIndex = new DomIndex();
-    domIndex.listarUsuariosDom();
-    domIndex.eliminarUsuarioDom();
-  })
-  
-}
+    const res = api.getApi();
+    domIndex.listarUsuarios(res);
+    domIndex.inicializarEliminacionyEdicionUsuario();
+    domIndex.eventoBtnAnterior();
+    domIndex.eventoBtnSiguiente();
+    domIndex.eventoBtnBuscar();
+    domIndex.eliminarConCheckBox();
+    domIndex.marcarCheckBox();
+  });
+};
 
-
+appIndex();
 </code></pre>
         </article>
     </section>
@@ -75,7 +79,7 @@ const appIndex = () =>{
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.0</a> on Mon Nov 21 2022 19:01:42 GMT-0600 (hora estándar central) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.0</a> on Sun Nov 27 2022 23:22:52 GMT-0600 (hora estándar central) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>

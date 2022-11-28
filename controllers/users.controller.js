@@ -19,36 +19,18 @@ const usersGet = async (req,res) =>{
               }
         }
     });
-    /*
-    if (usuarios.length== 0) {
-        console.log("hola")
-        res.status(400).json({
-            msg:"No existe"
-        })
-        return;
-    }
-    */
 
-  //  console.log(usuarios)
    
-   // console.log(usuarios);
     res.json({usuarios});
 
 }
 
 const userPost = async (req,res) =>{
-    
-    /*
-    const errors = validationResult(req);
-    if(!errors.isEmpty()){
-        return res.status(400).json(errors);
-    }
-    */
-   
 
     try {
+      
         const {body} = req;
-
+        /*
         const existeUsuario = await User.findOne({
             where:{
                 nombre: body.nombre
@@ -61,7 +43,7 @@ const userPost = async (req,res) =>{
             })
             return;
         }
-       
+       */
 
 
         const user = new User(body);
@@ -85,18 +67,36 @@ const userDelete = async (req,res) =>{
         })
         
     }
-
     await user.destroy();
-
-
-
+    res.json(user);
 }
 
+const userPut = async(req,res) =>{
+    const {id} = req.params;
+    const {body} = req;
+    try {
+        const user = await User.findByPk(id);
+        if (!user) {
+            return res.status(404);
+        }
+        await user.update(body);
+        res.json({
+            msg: "Usuario guardado con exito"
+        })
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            msg:'ERROR'
+        })
+        
+    }
+}
 
     
 module.exports ={
     usersGet,
     userPost,
-    userDelete
+    userDelete,
+    userPut
     
 }

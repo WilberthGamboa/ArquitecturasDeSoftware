@@ -29,7 +29,7 @@
 <nav >
     
     
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Api.html">Api</a><ul class='methods'><li data-type='method'><a href="Api.html#.consultarApi#consultarApi">consultarApi</a></li><li data-type='method'><a href="Api.html#.deleteApi#deleteApi">deleteApi</a></li><li data-type='method'><a href="Api.html#.postApi#postApi">postApi</a></li></ul></li><li><a href="DomFormUser.html">DomFormUser</a><ul class='methods'><li data-type='method'><a href="DomFormUser.html#.agregarUsuario#agregarUsuario">agregarUsuario</a></li><li data-type='method'><a href="DomFormUser.html#.alertAgregarUsuario#alertAgregarUsuario">alertAgregarUsuario</a></li><li data-type='method'><a href="DomFormUser.html#.alertarErrores#alertarErrores">alertarErrores</a></li><li data-type='method'><a href="DomFormUser.html#.obtenerValoresForm#obtenerValoresForm">obtenerValoresForm</a></li></ul></li><li><a href="DomIndex.html">DomIndex</a><ul class='methods'><li data-type='method'><a href="DomIndex.html#.eliminarUsuarioDom#eliminarUsuarioDom">eliminarUsuarioDom</a></li><li data-type='method'><a href="DomIndex.html#.listarUsuariosDom#listarUsuariosDom">listarUsuariosDom</a></li></ul></li><li><a href="RequestFormUser.html">RequestFormUser</a><ul class='methods'><li data-type='method'><a href="RequestFormUser.html#.manejadorSolicitudes#manejadorSolicitudes">manejadorSolicitudes</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#appFormUser">appFormUser</a></li><li><a href="global.html#appIndex">appIndex</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="AlertasSweet.html">AlertasSweet</a><ul class='methods'><li data-type='method'><a href="AlertasSweet.html#.alertarNoResultados#alertarNoResultados">alertarNoResultados</a></li><li data-type='method'><a href="AlertasSweet.html#.alertarSolicitudNoProcesada#alertarSolicitudNoProcesada">alertarSolicitudNoProcesada</a></li><li data-type='method'><a href="AlertasSweet.html#.alertarUsuarioEliminado#alertarUsuarioEliminado">alertarUsuarioEliminado</a></li></ul></li><li><a href="Api.html">Api</a><ul class='methods'><li data-type='method'><a href="Api.html#.deleteApi#deleteApi">deleteApi</a></li><li data-type='method'><a href="Api.html#.getApi#getApi">getApi</a></li><li data-type='method'><a href="Api.html#.postApi#postApi">postApi</a></li><li data-type='method'><a href="Api.html#.putApi#putApi">putApi</a></li></ul></li><li><a href="DomFormUser.html">DomFormUser</a><ul class='methods'><li data-type='method'><a href="DomFormUser.html#.agregarUsuario#agregarUsuario">agregarUsuario</a></li><li data-type='method'><a href="DomFormUser.html#.alertAgregarUsuario#alertAgregarUsuario">alertAgregarUsuario</a></li><li data-type='method'><a href="DomFormUser.html#.alertarErrores#alertarErrores">alertarErrores</a></li><li data-type='method'><a href="DomFormUser.html#.obtenerValoresForm#obtenerValoresForm">obtenerValoresForm</a></li></ul></li><li><a href="DomIndex.html">DomIndex</a><ul class='methods'><li data-type='method'><a href="DomIndex.html#.eliminarConCheckBox#eliminarConCheckBox">eliminarConCheckBox</a></li><li data-type='method'><a href="DomIndex.html#.eventoBtnAnterior#eventoBtnAnterior">eventoBtnAnterior</a></li><li data-type='method'><a href="DomIndex.html#.eventoBtnBuscar#eventoBtnBuscar">eventoBtnBuscar</a></li><li data-type='method'><a href="DomIndex.html#.eventoBtnSiguiente#eventoBtnSiguiente">eventoBtnSiguiente</a></li><li data-type='method'><a href="DomIndex.html#.inicializarEliminacionyEdicionUsuario#inicializarEliminacionyEdicionUsuario">inicializarEliminacionyEdicionUsuario</a></li><li data-type='method'><a href="DomIndex.html#.listarUsuarios#listarUsuarios">listarUsuarios</a></li><li data-type='method'><a href="DomIndex.html#.marcarCheckBox#marcarCheckBox">marcarCheckBox</a></li><li data-type='method'><a href="DomIndex.html#.procesoActualizarDom#procesoActualizarDom">procesoActualizarDom</a></li><li data-type='method'><a href="DomIndex.html#.verificarCheckBoxNavegacion#verificarCheckBoxNavegacion">verificarCheckBoxNavegacion</a></li></ul></li><li><a href="RequestFormUser.html">RequestFormUser</a><ul class='methods'><li data-type='method'><a href="RequestFormUser.html#.manejadorSolicitudes#manejadorSolicitudes">manejadorSolicitudes</a></li></ul></li><li><a href="global.html#UserRequest">UserRequest</a></li></ul><h3>Global</h3><ul><li><a href="global.html#appFormUser">appFormUser</a></li><li><a href="global.html#appIndex">appIndex</a></li></ul>
     
 </nav>
 
@@ -174,7 +174,165 @@
 
     
 
-    <h4 class="name" id="consultarApi"><span class="type-signature type-signature-async">(async) </span>consultarApi<span class="signature">()</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    <h4 class="name" id="deleteApi"><span class="type-signature type-signature-async">(async) </span>deleteApi<span class="signature">(id)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Realiza una petición post</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="api_api.js.html">api/api.js</a>, <a href="api_api.js.html#line57">line 57</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-parameters">Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">id del elemento a eliminar en la base de datos</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    Respuesta del servidor con la lista de usuarios
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="getApi"><span class="type-signature type-signature-async">(async) </span>getApi<span class="signature">()</span><span class="type-signature"> &rarr; {Promise}</span></h4>
 
     
 
@@ -282,165 +440,7 @@
 
     
 
-    <h4 class="name" id="deleteApi"><span class="type-signature type-signature-async">(async) </span>deleteApi<span class="signature">(req)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
-
-    
-
-
-
-
-<dl class="details">
-    
-    <dt class="tag-description">Description:</dt>
-    <dd class="tag-description"><ul class="dummy"><li>Realiza una petición post</li></ul></dd>
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="api_api.js.html">api/api.js</a>, <a href="api_api.js.html#line57">line 57</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <h5 class="h5-parameters">Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>req</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">id del elemento a eliminar en la base de datos</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5 class="h5-returns">Returns:</h5>
-
-        
-<div class="param-desc">
-    Respuesta del servidor con la lista de usuarios
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise</span>
-
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="postApi"><span class="type-signature type-signature-async">(async) </span>postApi<span class="signature">(req)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    <h4 class="name" id="postApi"><span class="type-signature type-signature-async">(async) </span>postApi<span class="signature">(userRequest)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
 
     
 
@@ -528,13 +528,13 @@
 
         <tr>
             
-                <td class="name"><code>req</code></td>
+                <td class="name"><code>userRequest</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type"><a href="global.html#UserRequest">UserRequest</a></span>
 
 
 
@@ -594,6 +594,188 @@
 
 
         
+            
+
+    
+
+    <h4 class="name" id="putApi"><span class="type-signature type-signature-async">(async) </span>putApi<span class="signature">(id, userRequest)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Clase encargada de hacer una petción put al server</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="api_api.js.html">api/api.js</a>, <a href="api_api.js.html#line85">line 85</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-parameters">Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">id del usuario a editar</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>userRequest</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#UserRequest">UserRequest</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">objeto con los datos del usario a editar</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    Confirma los datos editados
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
     
 
     
@@ -613,7 +795,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.0</a> on Mon Nov 21 2022 19:01:42 GMT-0600 (hora estándar central) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.0</a> on Sun Nov 27 2022 23:22:52 GMT-0600 (hora estándar central) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>

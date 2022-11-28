@@ -15,7 +15,7 @@ class Api {
    * @returns {Promise} Promesa con los usuarios de la base de datos
    * 
    */
-  async consultarApi  (busqueda="",desde="")  {
+  async getApi  (busqueda="",desde="")  {
     //const res = api.consultarApi('/?busqueda=' + textoBuscar.value + "&&desde=" + this.pagina);
     try {
       const respuesta = await fetch(`${this.url}/?busqueda=${busqueda}&&desde=${desde}`);
@@ -29,10 +29,10 @@ class Api {
   }
 /**
  * Realiza una petición post para almacenar los usuarios.
- * @param {Object} req Datos a enviar a la base de datos para su registro.
+ * @param {UserRequest} userRequest Datos a enviar a la base de datos para su registro.
  * @returns {Promise} Devuelve una promesa con mensajes dependiendo si la tarea se logró con éxito o no.
  */
- async postApi (req)  {
+ async postApi (userRequest)  {
     try {
       const config = {
         method: 'POST',
@@ -40,7 +40,7 @@ class Api {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(req)
+        body: JSON.stringify(userRequest)
       }
       const response = await fetch(this.url, config)
     
@@ -51,10 +51,10 @@ class Api {
   }
 /**
  * Realiza una petición post
- * @param {String} req id del elemento a eliminar en la base de datos
+ * @param {String} id id del elemento a eliminar en la base de datos
  * @returns {Promise} Respuesta del servidor con la lista de usuarios
  */
- async deleteApi (req) {
+ async deleteApi (id) {
 
     try {
       const config = {
@@ -65,14 +65,41 @@ class Api {
         },
         
       }
-      console.log(`${this.url}/${req}`)
-      const response = await fetch(`${this.url}/${req}`, config)
+      
+      const response = await fetch(`${this.url}/${id}`, config)
+      
       return response;
 
     } catch (error) {
       console.log(error);
     }
 
+  }
+/**
+ * Clase encargada de hacer una petción put al server
+ * @param {String} id  id del usuario a editar
+ * @param {UserRequest} userRequest objeto con los datos del usario a editar
+ * @returns {Promise} Confirma los datos editados
+ */
+
+  async putApi(id,userRequest){
+    try {
+      const config = {
+        method: 'PUT',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userRequest)
+      }
+    
+      const response = await fetch(`${this.url}/${id}`, config)
+     
+      return response;
+
+    } catch (error) {
+      console.log(error);
+    }
   }
 
 }
