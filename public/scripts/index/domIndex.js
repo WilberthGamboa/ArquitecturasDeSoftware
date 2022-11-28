@@ -137,7 +137,7 @@ class DomIndex {
         closebutton.addEventListener("click", () =>{
           const divNombre = document.querySelector('#divNombre');
       const divNumero = document.querySelector('#divNumero');
-
+      modal.classList.remove("scale-100")
       if (divNombre.hasChildNodes) {
         while (divNombre.hasChildNodes()) {
           divNombre.removeChild(divNombre.firstChild);
@@ -151,7 +151,7 @@ class DomIndex {
         }
        
       }
-      modal.classList.remove("scale-100")
+    
         }
        
         );
