@@ -70,6 +70,7 @@ class DomIndex {
         const imgEdit = document.createElement("img");
         imgEdit.src = "img/edit-svgrepo-com.svg";
         imgEdit.classList = "w-10 inline-block ";
+        imgEdit.id = "editar";
         //Insertamos en el mismo campo
         td1.appendChild(imgEdit);
         td1.appendChild(imgDelete);
@@ -128,35 +129,78 @@ class DomIndex {
           }
         });
       }
+
+      if (e.target.id == "editar") {
+        const closebutton = document.getElementById("closebutton");
+        const modal = document.getElementById("modal");
+        modal.classList.add("scale-100");
+        closebutton.addEventListener("click", () =>
+          modal.classList.remove("scale-100")
+        );
+        const trActual = e.target.parentNode.parentNode;
+        const inputId = document.querySelector("#id");
+        const inputNombre = document.querySelector("#nombre");
+        const inputNumero = document.querySelector("#numero");
+        inputId.value = trActual.childNodes[1].textContent;
+        inputNombre.value = trActual.childNodes[2].textContent;
+        inputNumero.value = trActual.childNodes[3].textContent;
+        const botonGuardar = document.querySelector("#btnSubmit");
+        botonGuardar.addEventListener("click", (e) => {
+          e.preventDefault();
+          const btnsInputId = document.querySelector("#id");
+          const btnsInputNombre = document.querySelector("#nombre");
+          const btnsInputNumero = document.querySelector("#numero");
+          console.log(btnsInputId.value)
+          /**
+           * Objeto request
+           * @type{{nombre:string,numero:string}}
+           *
+           */
+          const req = {
+            nombre: btnsInputNombre.value,
+            numero: btnsInputNumero.value,
+          };
+          const api = new Api();
+          const res = api.putApi(btnsInputId.value,req);
+          res.then((respuesta)=>{
+
+            if (respuesta.status==200) {
+              this.procesoActualizarDom();
+              
+            }
+                    
+          })
+          modal.classList.remove("scale-100");
+        });
+      }
     });
   }
 
   /**
    * Método encargado
-   * de realizar todas las consultas necesarias para navegar 
+   * de realizar todas las consultas necesarias para navegar
    * hacia adelante en el paginado de la tabla.
-   * 
+   *
    * @returns {void}
-   * 
-   * 
+   *
+   *
    */
 
   eventoBtnSiguiente() {
     const btnSiguiente = document.querySelector("#btnSiguiente");
     btnSiguiente.addEventListener("click", (e) => {
-      
       this.pagina++;
       /**
        * Creamos la consulta para obtener los valores siguientes de la tabla
        * procesamos la respuesta si la respuesta llega a ser 0 significa que no hay datos,
-       * por lo cual se decrece la página logicamente y no se actualiza el dom, mostrando la 
+       * por lo cual se decrece la página logicamente y no se actualiza el dom, mostrando la
        * alerta correspondiente que no se encontraron más usuarios
-       * 
-       * La utilidad del this.pagina es que al momento de mandar la consulta aumentar el valor total 
+       *
+       * La utilidad del this.pagina es que al momento de mandar la consulta aumentar el valor total
        * de la página para así ir navegando en las peticiones, (cómo si fuera el índice de un arreglo)
-       * 
+       *
        * La página actual simplemente es la forma visual;
-       * 
+       *
        */
       const api = new Api();
       const res = api.consultarApi(this.textoQueryBuscar, this.pagina);
@@ -166,7 +210,9 @@ class DomIndex {
           this.paginaActual.innerHTML = this.pagina + 1;
         } else {
           const alertasSweet = new AlertasSweet();
-          alertasSweet.alertarNoResultados('No hay más resultados para mostrar :D');
+          alertasSweet.alertarNoResultados(
+            "No hay más resultados para mostrar :D"
+          );
           this.pagina--;
         }
       });
@@ -174,13 +220,13 @@ class DomIndex {
   }
 
   /**
-   * Método encargado 
-   * de realizar todas las consultas necesarias para navegar 
+   * Método encargado
+   * de realizar todas las consultas necesarias para navegar
    * hacia adelante en el paginado de la tabla.
-   * 
+   *
    * @returns {void}
-   * 
-   * 
+   *
+   *
    */
 
   eventoBtnAnterior() {
@@ -195,34 +241,32 @@ class DomIndex {
       }
     });
   }
-/**
-   * Método encargado 
+  /**
+   * Método encargado
    * de realizar todas las consultas necesarias para buscar
    * en la tabla.
-   * 
+   *
    * @returns {void}
-   * 
-   * 
+   *
+   *
    */
 
   eventoBtnBuscar() {
-
     const btnBuscar = document.querySelector("#buscarNombre");
     btnBuscar.addEventListener("click", (e) => {
       const textoBuscar = document.querySelector("#textoBuscar");
       this.textoQueryBuscar = textoBuscar.value;
       /**
-       * Procesamos la consulta, en caso de la respuesta ser nula, seteamos el query de busqueda 
-       * a "" para que así no se realice ninguna busqueda al darle a los botones ya que estos 
-       * 
+       * Procesamos la consulta, en caso de la respuesta ser nula, seteamos el query de busqueda
+       * a "" para que así no se realice ninguna busqueda al darle a los botones ya que estos
+       *
        * De lo contrario procesamos la consulta y reiniciamos el dom para empezar la nevegación de nuevo
        */
       const api = new Api();
       const res = api.consultarApi(this.textoQueryBuscar);
       res.then((resultado) => {
-        if (resultado["usuarios"].length == 0) { 
+        if (resultado["usuarios"].length == 0) {
           this.textoQueryBuscar = "";
-        
         } else {
           this.listarUsuarios(res);
           this.pagina = 0;
@@ -233,8 +277,8 @@ class DomIndex {
   }
 
   /**
-   * Método encargado de procesar todo lo necesario para eliminar todas las casillas seleccionas 
-   * al darle click al boton eliminar 
+   * Método encargado de procesar todo lo necesario para eliminar todas las casillas seleccionas
+   * al darle click al boton eliminar
    * @return {void}
    */
   eliminarConCheckBox() {
@@ -248,7 +292,7 @@ class DomIndex {
       const casillas = document.querySelectorAll("#casilla");
       let confirmarMinimo = 0;
       //Ciclo de encontrar el número de casillas seleccionas
-      // TODO: Se puede mejorar con un ciclo while que te saque del bucle cuando encuentre una 
+      // TODO: Se puede mejorar con un ciclo while que te saque del bucle cuando encuentre una
       for (let index = 0; index < casillas.length; index++) {
         if (casillas[index].checked) {
           confirmarMinimo++;
@@ -256,27 +300,28 @@ class DomIndex {
       }
 
       if (confirmarMinimo == 0) {
-        alertasSweet.alertarSolicitudNoProcesada("No seleccionaste ningun elemento a eliminar");
-
+        alertasSweet.alertarSolicitudNoProcesada(
+          "No seleccionaste ningun elemento a eliminar"
+        );
       } else {
         promesaSweet.then((resultado) => {
           if (resultado.isConfirmed) {
             /**
-             * 
-             * 
+             *
+             *
              */
             let cantidadCheckbox = 0;
             let contadorPromesa = 0;
             const casillas = document.querySelectorAll("#casilla");
-            
+
             const api = new Api();
             /**
-             * Bucle encargado de procesar todas las consultas, se itera por cada casilla obteniendo el id 
+             * Bucle encargado de procesar todas las consultas, se itera por cada casilla obteniendo el id
              * y se generan peticiones de eliminar
-             * 
+             *
              * Se crea un contador cantidadcheckbox cargado de contar cuantos solicitudes se hicierion
-             * 
-             * 
+             *
+             *
              */
             for (let index = 0; index < casillas.length; index++) {
               if (casillas[index].checked) {
@@ -299,19 +344,17 @@ class DomIndex {
                         if (!this.pagina == 0) {
                           this.pagina = this.pagina - 1;
                         }
-                      } 
+                      }
                       this.procesoActualizarDom();
                     }
                   }
                 });
               }
             }
-           
           }
         });
 
         //PROBAR AQUI
-
       }
     });
   }
@@ -319,7 +362,7 @@ class DomIndex {
   /**
    * Método encargado de al momento de marcar o descarcar el checkbox padre
    * los demás lo hagan junto con él
-   * 
+   *
    * @return {void}
    */
   marcarCheckBox() {
@@ -337,17 +380,19 @@ class DomIndex {
       }
     });
   }
-/**
- * 
- * Método encargado de llamar al método consultar y llamar a listarUsuario
- * se utiliza para evitar repetir este tramo de código en los demás métodos,
- * no proporciona una funcionalidad nueva al sistema
- * @return {void}
- * 
- */
+  /**
+   *
+   * Método encargado de llamar al método consultar y llamar a listarUsuario
+   * se utiliza para evitar repetir este tramo de código en los demás métodos,
+   * no proporciona una funcionalidad nueva al sistema
+   * @return {void}
+   *
+   */
   procesoActualizarDom() {
     const api = new Api();
     const res = api.consultarApi(this.textoQueryBuscar, Number(this.pagina));
     this.listarUsuarios(res);
   }
+
+  ventanaModal() {}
 }

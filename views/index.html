@@ -56,33 +56,31 @@
 
     </div>
 
-    <div>    
-        <button id="buttonmodal" class="focus:outline-none p-2 bg-blue-600 text-white bg-opacity-75 rounded-lg ring-4 ring-indigo-300" type="button">Open modal</button>
-    </div>
     
     <div id="modal"
         class="fixed top-0 left-0 w-screen h-screen flex items-center justify-center bg-gray-500 bg-opacity-90 transform scale-0 transition-transform duration-300">
         <!-- Modal content -->
         <div class="bg-white w-1/2 p-12 rounded"> 
             <!--Close modal button-->
-            <input  type="button" id="closebutton" type="button" class="focus:outline-none" value="cerrar">
+
                 <!-- Hero icon - close button -->
-                
+            <img class="w-10 inline-block rounded cursor-pointer "src="img\close-svgrepo-com.svg" alt="" id="closebutton" >
         </input>
             <form class=" ">
+                <div id="campoId" class="mb-5">
+                    <label for="id" class="mb-2 block uppercase text-gray-500 font-bold text-center">ID</label>
+                    <input id="id" type="text" placeholder="ID"  class="border p-3 w-full rounded-lg " disabled>
+                   
+                </div>
                 <div id="campoNombre" class="mb-5">
                     <label for="nombre" class="mb-2 block uppercase text-gray-500 font-bold text-center">Nombre</label>
                     <input id="nombre" type="text" placeholder="Nombre"  class="border p-3 w-full rounded-lg">
-                    <div id="divNombre">
-    
-                    </div>
+                    
                 </div>
                 <div id="campoNumero" class="mb-5">
                     <label for="numero" class="mb-2 block uppercase text-gray-500 font-bold text-center">Número</label>
                     <input id="numero" type="text" placeholder="Número " class="border p-3 w-full rounded-lg">
-                    <div id="divNumero">
-    
-                    </div>
+                  
                 </div>
     
     
@@ -98,14 +96,7 @@
     </div>
     
     
-    <script> 
-        const button = document.getElementById('buttonmodal')
-        const closebutton = document.getElementById('closebutton')
-        const modal = document.getElementById('modal')
-    
-        button.addEventListener('click',()=>modal.classList.add('scale-100'))
-        closebutton.addEventListener('click',()=>modal.classList.remove('scale-100'))
-    </script>
+  
     <script src="scripts/api/api.js"></script>
     <script src="scripts/index/domIndex.js"></script>
     <script src="scripts/alertasSweet/alertasSweet.js"></script>

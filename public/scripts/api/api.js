@@ -76,6 +76,26 @@ class Api {
 
   }
 
+  async putApi(id,req){
+    try {
+      const config = {
+        method: 'PUT',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(req)
+      }
+    
+      const response = await fetch(`${this.url}/${id}`, config)
+     
+      return response;
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
 }
 
 

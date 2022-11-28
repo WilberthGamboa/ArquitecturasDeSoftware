@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const { check} = require("express-validator");
-const { usersGet, userPost, userDelete } = require("../controllers/users.controller");
+const { usersGet, userPost, userDelete, userPut } = require("../controllers/users.controller");
 const { validarCampos } = require("../middlewares/reqValidator.middleware");
 
 const router = Router();
@@ -20,6 +20,8 @@ router.post('/',[
 router.delete('/:id',[
     check('id','No es un ID válido').exists(),
     validarCampos
-],userDelete)
+],userDelete);
+
+router.put('/:id',userPut);
 
 module.exports=router;
