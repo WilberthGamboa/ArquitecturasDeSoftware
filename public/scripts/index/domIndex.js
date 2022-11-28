@@ -134,8 +134,26 @@ class DomIndex {
         const closebutton = document.getElementById("closebutton");
         const modal = document.getElementById("modal");
         modal.classList.add("scale-100");
-        closebutton.addEventListener("click", () =>
-          modal.classList.remove("scale-100")
+        closebutton.addEventListener("click", () =>{
+          const divNombre = document.querySelector('#divNombre');
+      const divNumero = document.querySelector('#divNumero');
+
+      if (divNombre.hasChildNodes) {
+        while (divNombre.hasChildNodes()) {
+          divNombre.removeChild(divNombre.firstChild);
+        }
+
+      }
+
+      if (divNumero.hasChildNodes) {
+        while (divNumero.hasChildNodes()) {
+          divNumero.removeChild(divNumero.firstChild);
+        }
+       
+      }
+      modal.classList.remove("scale-100")
+        }
+       
         );
         const trActual = e.target.parentNode.parentNode;
         const inputId = document.querySelector("#id");
@@ -147,23 +165,85 @@ class DomIndex {
         const botonGuardar = document.querySelector("#btnSubmit");
         botonGuardar.addEventListener("click", (e) => {
           e.preventDefault();
+       
           const btnsInputId = document.querySelector("#id");
           const btnsInputNombre = document.querySelector("#nombre");
           const btnsInputNumero = document.querySelector("#numero");
           const userRequest = new UserRequest(btnsInputNombre.value,btnsInputNumero.value);
-          
-          
           const api = new Api();
-          const res = api.putApi(btnsInputId.value,userRequest);
+          const res= api.putApi(btnsInputId.value,userRequest);
+          
+          if (divNombre.hasChildNodes) {
+            while (divNombre.hasChildNodes()) {
+              divNombre.removeChild(divNombre.firstChild);
+            }
+    
+          }
+    
+          if (divNumero.hasChildNodes) {
+            while (divNumero.hasChildNodes()) {
+              divNumero.removeChild(divNumero.firstChild);
+            }
+    
+          }
+         
+      
+         // requestFormUser.manejadorSolicitudes(res);
           res.then((respuesta)=>{
-
+              
             if (respuesta.status==200) {
               this.procesoActualizarDom();
+              modal.classList.remove("scale-100");
+            }else{
+              respuesta.json().then(json=>{
+                const arrayErrors = json['errors'];
+
+      const divNombre = document.querySelector('#divNombre');
+      const divNumero = document.querySelector('#divNumero');
+
+      if (divNombre.hasChildNodes) {
+        while (divNombre.hasChildNodes()) {
+          divNombre.removeChild(divNombre.firstChild);
+        }
+
+      }
+
+      if (divNumero.hasChildNodes) {
+        while (divNumero.hasChildNodes()) {
+          divNumero.removeChild(divNumero.firstChild);
+        }
+
+      }
+      arrayErrors.map(element => {
+        const p = document.createElement('P');
+
+        p.innerHTML = element['msg'];
+        p.classList = "flex justify-center items-center m-1 font-medium py-1 px-2 bg-white rounded-md text-red-100 bg-red-700 border border-red-700";
+
+
+        if (element['param'] == 'nombre') {
+
+          divNombre.appendChild(p);
+
+        }
+
+        if (element['param'] == 'numero') {
+
+          divNumero.appendChild(p);
+
+        }
+
+      });
+            
+              })
+        
+              
+              
               
             }
                     
           })
-          modal.classList.remove("scale-100");
+       
         });
       }
     });
