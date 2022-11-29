@@ -96,75 +96,11 @@ class DomIndex {
     tablebody.addEventListener("click", (e) => {
       //Identifica con el id si queremos eliminar
       if (e.target.id == "eliminar") {
-        //Mostramos la alerta
-        const alertasSweet = new AlertasSweet();
-        //Recibimos la promesa de alertasSweet y la procesamos
-        const promesaSweet = alertasSweet.alertarUsuarioEliminado();
-        promesaSweet.then((resultado) => {
-          if (resultado.isConfirmed) {
-            //Subimos en el dom para obtener la fila actual y la guardamos
-            const trActual = e.target.parentNode.parentNode;
-            //Creamos la solicitud a la api parra borrar
-            const api = new Api();
-            const res = api.deleteApi(
-              Number(trActual.childNodes[1].textContent)
-            );
-            //Procesamos el estado
-            res.then((estado) => {
-              if (estado.status == 200) {
-                /**
-                 * Si en el cuerpo de la tabla queda uno y se va a eliminar
-                 * significa que tenemos que pedir una posición anterior
-                 * porque al volver a redibujar el dom nos devolverá nulo
-                 * ya que no existen consultas ya que se eliminó la última.
-                 *
-                 */
-                if (tbody.childElementCount == 1) {
-                  this.paginaActual.innerHTML = this.pagina;
-                  this.pagina = this.pagina - 1;
-                }
-                this.procesoActualizarDom();
-              }
-            });
-          }
-        });
+        this.eventoEliminar(e);
       }
 
       if (e.target.id == "editar") {
-        const closebutton = document.getElementById("closebutton");
-        const modal = document.getElementById("modal");
-        modal.classList.add("scale-100");
-        closebutton.addEventListener("click", () =>
-          modal.classList.remove("scale-100")
-        );
-        const trActual = e.target.parentNode.parentNode;
-        const inputId = document.querySelector("#id");
-        const inputNombre = document.querySelector("#nombre");
-        const inputNumero = document.querySelector("#numero");
-        inputId.value = trActual.childNodes[1].textContent;
-        inputNombre.value = trActual.childNodes[2].textContent;
-        inputNumero.value = trActual.childNodes[3].textContent;
-        const botonGuardar = document.querySelector("#btnSubmit");
-        botonGuardar.addEventListener("click", (e) => {
-          e.preventDefault();
-          const btnsInputId = document.querySelector("#id");
-          const btnsInputNombre = document.querySelector("#nombre");
-          const btnsInputNumero = document.querySelector("#numero");
-          const userRequest = new UserRequest(btnsInputNombre.value,btnsInputNumero.value);
-          
-          
-          const api = new Api();
-          const res = api.putApi(btnsInputId.value,userRequest);
-          res.then((respuesta)=>{
-
-            if (respuesta.status==200) {
-              this.procesoActualizarDom();
-              
-            }
-                    
-          })
-          modal.classList.remove("scale-100");
-        });
+        this.eventoEditar(e);
       }
     });
   }
@@ -180,7 +116,6 @@ class DomIndex {
    */
 
   eventoBtnSiguiente() {
-  
     const btnSiguiente = document.querySelector("#btnSiguiente");
     btnSiguiente.addEventListener("click", (e) => {
       this.verificarCheckBoxNavegacion();
@@ -225,7 +160,6 @@ class DomIndex {
    */
 
   eventoBtnAnterior() {
-   
     const btnAnterior = document.querySelector("#btnAnterior");
     btnAnterior.addEventListener("click", (e) => {
       this.verificarCheckBoxNavegacion();
@@ -249,8 +183,10 @@ class DomIndex {
    */
 
   eventoBtnBuscar() {
+   
     const btnBuscar = document.querySelector("#buscarNombre");
     btnBuscar.addEventListener("click", (e) => {
+      this.verificarCheckBoxNavegacion();
       const textoBuscar = document.querySelector("#textoBuscar");
       this.textoQueryBuscar = textoBuscar.value;
       /**
@@ -264,6 +200,8 @@ class DomIndex {
       res.then((resultado) => {
         if (resultado["usuarios"].length == 0) {
           this.textoQueryBuscar = "";
+          const alertasSweet = new AlertasSweet();
+          alertasSweet.alertarNoResultados("La búsqueda no arrojó resultados");
         } else {
           this.listarUsuarios(res);
           this.pagina = 0;
@@ -298,7 +236,7 @@ class DomIndex {
 
       if (confirmarMinimo == 0) {
         alertasSweet.alertarSolicitudNoProcesada(
-          "No seleccionaste ningun elemento a eliminar"
+          "No seleccionaste ningún elemento a eliminar"
         );
       } else {
         promesaSweet.then((resultado) => {
@@ -336,7 +274,10 @@ class DomIndex {
                     if (contadorPromesa == confirmarMinimo) {
                       //Si cantidad cantillas existentes es igual al cantidad de casillas seleccionadas
                       //significa que ya no existen elementos por lo que se debe retroceder en el paginado
-                      if (tbody.childElementCount == cantidadCheckbox && this.pagina!=0) {
+                      if (
+                        tbody.childElementCount == cantidadCheckbox &&
+                        this.pagina != 0
+                      ) {
                         this.paginaActual.innerHTML = this.pagina;
                         if (!this.pagina == 0) {
                           this.pagina = this.pagina - 1;
@@ -383,14 +324,143 @@ class DomIndex {
    * @returns {void}
    */
 
-  verificarCheckBoxNavegacion(){
-    
+  verificarCheckBoxNavegacion() {
     const checkBoxPadre = document.querySelector("#checkBoxPrincipal");
     if (checkBoxPadre.checked) {
-    
-     checkBoxPadre.checked=false;
+      checkBoxPadre.checked = false;
     }
   }
+  eventoEliminar(e){
+    //Mostramos la alerta
+    const alertasSweet = new AlertasSweet();
+    //Recibimos la promesa de alertasSweet y la procesamos
+    const promesaSweet = alertasSweet.alertarUsuarioEliminado();
+    promesaSweet.then((resultado) => {
+      if (resultado.isConfirmed) {
+        //Subimos en el dom para obtener la fila actual y la guardamos
+        const trActual = e.target.parentNode.parentNode;
+        //Creamos la solicitud a la api parra borrar
+        const api = new Api();
+        const res = api.deleteApi(
+          Number(trActual.childNodes[1].textContent)
+        );
+        //Procesamos el estado
+        res.then((estado) => {
+          if (estado.status == 200) {
+            /**
+             * Si en el cuerpo de la tabla queda uno y se va a eliminar
+             * significa que tenemos que pedir una posición anterior
+             * porque al volver a redibujar el dom nos devolverá nulo
+             * ya que no existen consultas ya que se eliminó la última.
+             *
+             */
+            if (tbody.childElementCount == 1) {
+              this.paginaActual.innerHTML = this.pagina;
+              this.pagina = this.pagina - 1;
+            }
+            this.procesoActualizarDom();
+          }
+        });
+      }
+    });
+  }
+  eventoEditar(e) {
+    const closebutton = document.getElementById("closebutton");
+    const modal = document.getElementById("modal");
+    modal.classList.add("scale-100");
+    closebutton.addEventListener("click", () => {
+      const divNombre = document.querySelector("#divNombre");
+      const divNumero = document.querySelector("#divNumero");
+      modal.classList.remove("scale-100");
+      if (divNombre.hasChildNodes) {
+        while (divNombre.hasChildNodes()) {
+          divNombre.removeChild(divNombre.firstChild);
+        }
+      }
+
+      if (divNumero.hasChildNodes) {
+        while (divNumero.hasChildNodes()) {
+          divNumero.removeChild(divNumero.firstChild);
+        }
+      }
+    });
+    const trActual = e.target.parentNode.parentNode;
+    const inputId = document.querySelector("#id");
+    const inputNombre = document.querySelector("#nombre");
+    const inputNumero = document.querySelector("#numero");
+    inputId.value = trActual.childNodes[1].textContent;
+    inputNombre.value = trActual.childNodes[2].textContent;
+    inputNumero.value = trActual.childNodes[3].textContent;
+    const botonGuardar = document.querySelector("#btnSubmit");
+    botonGuardar.addEventListener("click", (e) => {
+      e.preventDefault();
+
+      const btnsInputId = document.querySelector("#id");
+      const btnsInputNombre = document.querySelector("#nombre");
+      const btnsInputNumero = document.querySelector("#numero");
+      const userRequest = new UserRequest(
+        btnsInputNombre.value,
+        btnsInputNumero.value
+      );
+      const api = new Api();
+      const res = api.putApi(btnsInputId.value, userRequest);
+
+      if (divNombre.hasChildNodes) {
+        while (divNombre.hasChildNodes()) {
+          divNombre.removeChild(divNombre.firstChild);
+        }
+      }
+
+      if (divNumero.hasChildNodes) {
+        while (divNumero.hasChildNodes()) {
+          divNumero.removeChild(divNumero.firstChild);
+        }
+      }
+
+      // requestFormUser.manejadorSolicitudes(res);
+      res.then((respuesta) => {
+        if (respuesta.status == 200) {
+          this.procesoActualizarDom();
+          modal.classList.remove("scale-100");
+        } else {
+          respuesta.json().then((json) => {
+            const arrayErrors = json["errors"];
+
+            const divNombre = document.querySelector("#divNombre");
+            const divNumero = document.querySelector("#divNumero");
+
+            if (divNombre.hasChildNodes) {
+              while (divNombre.hasChildNodes()) {
+                divNombre.removeChild(divNombre.firstChild);
+              }
+            }
+
+            if (divNumero.hasChildNodes) {
+              while (divNumero.hasChildNodes()) {
+                divNumero.removeChild(divNumero.firstChild);
+              }
+            }
+            arrayErrors.map((element) => {
+              const p = document.createElement("P");
+
+              p.innerHTML = element["msg"];
+              p.classList =
+                "flex justify-center items-center m-1 font-medium py-1 px-2 bg-white rounded-md text-red-100 bg-red-700 border border-red-700";
+
+              if (element["param"] == "nombre") {
+                divNombre.appendChild(p);
+              }
+
+              if (element["param"] == "numero") {
+                divNumero.appendChild(p);
+              }
+            });
+          });
+        }
+      });
+    });
+  }
+
   /**
    *
    * Método encargado de llamar al método consultar y llamar a listarUsuario
@@ -404,6 +474,4 @@ class DomIndex {
     const res = api.getApi(this.textoQueryBuscar, Number(this.pagina));
     this.listarUsuarios(res);
   }
-
-  
 }

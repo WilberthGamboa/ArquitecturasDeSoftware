@@ -14,6 +14,8 @@ const appIndex = () => {
     domIndex.eventoBtnBuscar();
     domIndex.eliminarConCheckBox();
     domIndex.marcarCheckBox();
+
+    
   });
 };
 

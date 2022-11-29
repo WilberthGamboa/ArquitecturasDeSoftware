@@ -80,9 +80,7 @@ const userPut = async(req,res) =>{
             return res.status(404);
         }
         await user.update(body);
-        res.json({
-            msg: "Usuario guardado con exito"
-        })
+        res.json(user)
     } catch (error) {
         console.log(error);
         res.status(500).json({
