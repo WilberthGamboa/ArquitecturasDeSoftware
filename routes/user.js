@@ -156,7 +156,7 @@ router.get('/', usersGet);
  *           schema:
  *             $ref: 'http://localhost:3000/api/usuarios'
  *           example:
- *             { "nombre": "Ariel", "telefono":"9992329997" }
+ *             { "nombre": "Ariel", "numero":"9992329997" }
  *     responses:
  *       200:
  *         description: El usuario se ha creado exitosamente
@@ -204,10 +204,74 @@ router.post('/',[
 
 ,userPost);
 
+/**
+ * @swagger
+ * /api/usuarios/{id}:
+ *   delete:
+ *     description: Elimina un usuario
+ *     tags:
+ *       - users
+ *     parameters:
+ *       - name: id
+ *         description: ID del usuario a eliminar
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: El usuario se ha eliminado exitosamente
+ *       404:
+ *         description: No se encontró el usuario con el ID especificado
+ */
+
 router.delete('/:id',[
     check('id','No es un ID válido').exists(),
     validarCampos
 ],userDelete);
+
+/**
+ * @swagger
+ * /api/usuarios/{id}:
+ *   put:
+ *     description: Actualiza la información de un usuario
+ *     tags:
+ *       - users
+ *     parameters:
+ *       - name: id
+ *         description: ID del usuario a actualizar
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       description: Nueva información del usuario
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: 'http://localhost:3000/api/usuarios'
+ *           example:
+ *             { "nombre": "Esteban","numero":"9992333333" }
+ *     responses:
+ *       200:
+ *         description: El usuario se ha actualizado exitosamente
+ *         
+ *       400:
+ *         description: Faltan campos en la solicitud /nombre incorrecto /id incorrecto
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: 'http://localhost:3000/api/usuarios'
+ *             example:
+ *              {
+ *                "errores":  [
+ *                  {"nombre":"campo vacio" },
+ *                  {"numero":"campo vacio" }
+ *                  ]
+ *                  }
+ */
+
 
 router.put('/:id',[
     check('nombre','El nombre es obligatorio').not().isEmpty(),
