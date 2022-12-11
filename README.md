@@ -5,6 +5,7 @@
 2. Fernandez Mena Ariel JeSús 
 3. Gamboa Campos Wilberth Manuel
 4. Pacheco Serralta Esteban Alfonso
+5. Izunza Najar Luis Antonio.
 
 ## Liga video 
 
