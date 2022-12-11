@@ -9,5 +9,5 @@
 
 ## Liga video 
 
-[![Alt text](example)](example)
-Enlace al [video](https://www.youtube.com/watch?v=pWdiEqKw_-k)
+
+Enlace al [video](https://youtu.be/ygiEB5q0Nao)
