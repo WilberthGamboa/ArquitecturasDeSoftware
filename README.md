@@ -1,7 +1,7 @@
 # Arquitecturas-De-Software-Proyecto
 
 ## Tecnologías
-<img  src = "readmeImg/express.webp" width = "500" height = "270">
+<img align="center" src = "readmeImg/express.webp" width = "500" height = "270">
 <img src = "readmeImg/tailwind.png" width = "500" height = "270">
 <img src = "readmeImg/mysql.png" width = "500" height = "270">
 
