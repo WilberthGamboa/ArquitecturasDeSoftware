@@ -4,10 +4,10 @@
 <div align="center"> 
 <div><img align="center" src = "readmeImg/express.png" width = "500" height = "270"></div>
 <div>
-<img src = "readmeImg/tailwind.png" width = "300" height = "270"> </div>
+<img src = "readmeImg/tailwind.png" width = "300" height = "200"> </div>
 <div> 
 
-<img src = "readmeImg/mysql.png" width = "500" height = "270"></div>
+<img src = "readmeImg/mysql.png" width = "500" height = "200"></div>
 
 
 </div>
