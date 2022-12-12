@@ -1,7 +1,7 @@
 # Arquitecturas-De-Software-Proyecto
 
 ## Tecnologías
-<img src = "redmeImg/express.webp" width = "250" height = "270">
+<img src = "readmeImg/express.webp" width = "250" height = "270">
 
 ## Integrantes:
 1. Aké Gamboa Alejandro.
