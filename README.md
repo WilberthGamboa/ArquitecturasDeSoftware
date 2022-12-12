@@ -2,8 +2,8 @@
 
 ## Tecnologías
 <img  src = "readmeImg/express.webp" width = "500" height = "270">
-<img src = "tailwind.png" width = "500" height = "270">
-<img src = "mysql.png" width = "500" height = "270">
+<img src = "readmeImg/tailwind.png" width = "500" height = "270">
+<img src = "readmeImg/mysql.png" width = "500" height = "270">
 
 ## Integrantes:
 1. Aké Gamboa Alejandro.
