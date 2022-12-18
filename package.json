@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:css": "postcss public/styles/tailwind.css -o public/styles/styles.css --watch",
     "corre": "npx tailwindcss -i ./public/styles/tailwind.css -o ./public/styles/styles.css --watch",
-    "docs": "npx jsdoc -c jsdoc.json"
+    "docs": "npx jsdoc -c jsdoc.json",
+    "start" :"node index.js"
   },
   "repository": {
     "type": "git",
@@ -22,6 +23,7 @@
   "dependencies": {
     "cors": "^2.8.5",
     "docdash": "^2.0.0",
+    "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "express-validator": "^6.14.2",
     "install": "^0.13.0",
