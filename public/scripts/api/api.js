@@ -6,8 +6,9 @@ class Api {
 /** Almacena la dirección de la api dentro del constructor
  * @constructor
  */
+
   constructor() {
-    this.url = "http://localhost:3000/api/usuarios";
+    this.url = "https://arquitecturasdesoftware-production.up.railway.app/api/usuarios";
   }
   /**
    * Realiza una petición get para obtener los usuarios
